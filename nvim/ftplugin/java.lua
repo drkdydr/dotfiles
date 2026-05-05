@@ -95,7 +95,7 @@ local function setup_jdtls()
 
     -- Determine the root directory of the project by looking for these specific markers
     -- Fallback to the current directory if none of the markers are found so single files work
-    local root_dir = jdtls.setup.find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' }) or vim.fn.getcwd()
+    local root_dir = jdtls.setup.find_root({ 'mvnw', 'gradlew', 'pom.xml', 'build.gradle', '.git' }) or vim.fn.getcwd()
 
 
     -- Tell our JDTLS language features it is capable of
@@ -143,6 +143,14 @@ local function setup_jdtls()
      -- Configure settings in the JDTLS server
     local settings = {
         java = {
+            project = {
+            referencedLibraries = {
+                -- Proje klasöründeki 'lib' içindeki tüm jar'ları dahil et
+                "lib/*.jar",
+                -- Veya tam yol vererek ekle:
+                -- "/home/user/my_libs/external.jar",
+            }
+        },
             -- Enable code formatting
             format = {
                 enabled = true,

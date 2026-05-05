@@ -62,10 +62,21 @@ return {
 
             { "<leader>a", "<cmd>Alpha<cr>", desc = "Alpha", nowait = true, remap = false },
 
-            -- this did not worked.
-            -- { "<leader>b", group = "Bufferline", nowait = true, remap = false },  
-            -- { "<leader>bb", "<cmd>bd<CR>", desc = "Close Buffer", nowait = true, remap = false },
-            -- { "<leader>bw", "<cmd>q<CR>", desc = "Close Buffer Window", nowait = true, remap = false },
+            { "<leader>b", group = "Debugger" },
+            { "<leader>bt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", desc = "Toggle Breakpoint", nowait = true, remap = false },
+            { "<leader>bc", "<cmd>lua require'dap'.continue()<cr>", desc = "Continue", nowait = true, remap = false },
+            { "<leader>bi", "<cmd>lua require'dap'.step_into()<cr>", desc = "Step Into", nowait = true, remap = false },
+            { "<leader>bo", "<cmd>lua require'dap'.step_over()<cr>", desc = "Step Over", nowait = true, remap = false },
+            { "<leader>bu", "<cmd>lua require'dap'.step_out()<cr>", desc = "Step Out", nowait = true, remap = false },
+            { "<leader>br", "<cmd>lua require'dap'.repl.open()<cr>", desc = "Open REPL", nowait = true, remap = false },
+            { "<leader>bl", "<cmd>lua require'dap'.run_last()<cr>", desc = "Run Last", nowait = true, remap = false },
+            { "<leader>bq", "<cmd>lua require'dap'.terminate(); require'dapui'.close(); require'nvim-dap-virtual-text'.toggle()<cr>", desc = "Terminate", nowait = true, remap = false },
+            { "<leader>bb", "<cmd>lua require'dap'.list_breakpoints()<cr>", desc = "List Breakpoints", nowait = true, remap = false },
+            { "<leader>be", "<cmd>lua require'dap'.set_exception_breakpoints({'all'})<cr>", desc = "Set Exception Breakpoints", nowait = true, remap = false },
+            { "<leader>bX", "<cmd>lua require'dap'.clear_breakpoints()<cr>", desc = "Clear All Breakpoints", nowait = true, remap = false },
+
+            { "<leader>c", group = "Code/Change" }, -- 'c' tuşuna basınca bu grup adı gözükür
+            { "<leader>cr", desc = "Smart Rename" },
 
             { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer", nowait = true, remap = false },
 
@@ -74,6 +85,7 @@ return {
             { "<leader>ff", "<cmd>lua require('telescope.builtin').find_files()<cr>", desc = "Find files", nowait = true, remap = false },
             { "<leader>fg", "<cmd>Telescope live_grep <cr>", desc = "Find Text Pattern", nowait = true, remap = false },
             { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files", nowait = true, remap = false },
+
             { "<leader>k", "<cmd>bdelete<CR>", desc = "Kill Buffer", nowait = true, remap = false },
 
             { "<leader>l", group = "LSP", nowait = true, remap = false },

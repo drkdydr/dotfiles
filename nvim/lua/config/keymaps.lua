@@ -35,3 +35,6 @@ vim.keymap.set('v', '<C-_>', 'gc', { remap = true, desc = 'Toggle comment line t
 -- Personal shortcuts
 vim.keymap.set('n', '<CR>', 'o<Esc>')
 vim.keymap.set('n', '<S-CR>', 'O<Esc>')
+
+-- Değişken ismini her yerde değiştirmek için (LSP)
+vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, { desc = "Smart Rename" })

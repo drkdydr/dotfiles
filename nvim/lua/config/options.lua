@@ -9,9 +9,9 @@ vim.opt.sidescrolloff = 9 -- number of columns to keep to the left/right of curs
 
 -- Tab spacing/behavior
 vim.opt.expandtab = true -- convert tabs to spaces
-vim.opt.shiftwidth = 4 -- number of spaces inserted for each indentation level
-vim.opt.tabstop = 4 -- number of spaces inserted for tab character
-vim.opt.softtabstop = 4 -- number of spaces inserted for <Tab> key
+vim.opt.shiftwidth = 6 -- number of spaces inserted for each indentation level
+vim.opt.tabstop = 6 -- number of spaces inserted for tab character
+vim.opt.softtabstop = 6 -- number of spaces inserted for <Tab> key
 vim.opt.smartindent = true -- enable smart indentation
 vim.opt.breakindent = true -- enable line breaking indentation
 
@@ -37,3 +37,6 @@ vim.opt.cursorline = true -- highlight current line
 vim.opt.hlsearch = true -- highlight all matches in search
 vim.opt.ignorecase = true -- ignore case in search
 vim.opt.smartcase = true -- match case if explicitly stated
+
+-- to move debug symbol to the left of line numbers
+vim.opt.statuscolumn = "%s%l "
