@@ -1,0 +1,11 @@
+#!/bin/bash
+
+VERSION=$(ls /usr/src | grep r8168 | head -n1 | cut -d'-' -f2-)
+#arrayler bu bu şekilde {} içinde tutuluyormuş.
+
+sudo dkms remove --force -m r8168 -v $VERSION
+sudo dkms add --force -m r8168 -v $VERSION
+sudo dkms build --force -m r8168 -v $VERSION
+sudo dkms install --force -m r8168 -v $VERSION
+
+sudo modprobe r8168

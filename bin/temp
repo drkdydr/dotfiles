@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# eğer .temp içinde hiçbir değişiklik yapmazsak mv hata veriyor (sorun değil ama kötü duruyor)
+
+TRASH_DIR="$HOME/.local/share/Trash"
+DOTTEMP_DIR="$HOME/projects/.temp"
+
+openTextEditor(){
+     nvim $DOTTEMP_DIR &
+     wait $!
+     # mv -i $DOTTEMP_DIR/* $TRASH_DIR/
+     trash $DOTTEMP_DIR/*
+     # eğer Trash'te aynı adda dosya varsa overwrite için onay ister
+}
+
+run(){
+     while [[ $# -gt 0 ]]; do
+          case $1 in
+               --lang | -l)
+                    case $2 in
+                         cpp)
+                              touch "$DOTTEMP_DIR/main.cpp"
+                              cat > "$DOTTEMP_DIR/main.cpp" << EOF
+#include <iostream>
+
+using namespace std;
+
+int main(){
+}
+EOF
+                              shift
+                              ;;                         *)
+                         echo "temp: Unavailable lang -- '$2'";
+                         ;;
+                    esac
+                    shift
+               ;;
+               *)
+                    echo "temp: Unknown argument -- '$2'";
+               ;;
+          esac
+     done
+     openTextEditor
+}
+
+run "$@" &

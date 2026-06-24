@@ -79,18 +79,12 @@ vim.diagnostic.config({
 		-- direkt buradan ezebilir, o yüzden 'rounded' iyidir.
 	},
 })
---
--- -- Hover pencerelerini (K tuşu) daha "temiz" hale getirmek için:
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
---   vim.lsp.handlers.hover, {
---     border = "rounded",
---     -- Maksimum genişlik vererek Telescope pencereleri gibi yayılmasını sağlayabilirsin
---     max_width = 80,
---   }
--- )
---
--- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
---   vim.lsp.handlers.signatureHelp, {
---     border = "rounded",
---   }
--- )
+
+-- Hover ve Signature Help pencerelerine yuvarlak kenarlık ekleme (Modern Yöntem)
+local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or "rounded" -- Kenarlıkları yuvarlak yapar ("single", "double" veya "shadow" da yapabilirsin)
+  opts.max_width = opts.max_width or 80  -- Çok genişleyip ekranı kaplamasını engeller
+  return orig_util_open_floating_preview(contents, syntax, opts, ...)
+end

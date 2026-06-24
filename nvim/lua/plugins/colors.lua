@@ -13,24 +13,30 @@ return {
             vim.cmd("colorscheme github_dark")
         end,    
     },
-    {
-        "xiyaowong/transparent.nvim",
-        lazy = false,
-        config = function()
-            require('transparent').setup({
-                -- Eklemek istediğin diğer eklenti grupları:
-                extra_groups = {
-                    "BufferLineFileIcon",
-                    "BufferLineFill",
-                    "BufferLineBackground",
-                    "BufferLineSeparator",
-                    "BufferLineIndicatorSelected",
-                    "NvimTreeNormal",
-                    "NvimTreeNormalNC",
-                    "NvimTreeWinSeparator",
-                },
-                exclude_groups = {}, 
-            })
-        end
-    }
+      -- { --also pretty cool colorscheme
+      --       "vimcolorschemes/olive-crt.nvim",
+      --       lazy = false,
+      --       priority = 1000,
+      --       opts = {},
+      -- },
+    -- {
+    --     "xiyaowong/transparent.nvim",
+    --     lazy = false,
+    --     config = function()
+    --         require('transparent').setup({
+    --             -- Eklemek istediğin diğer eklenti grupları:
+    --             extra_groups = {
+    --                 "BufferLineFileIcon",
+    --                 "BufferLineFill",
+    --                 "BufferLineBackground",
+    --                 "BufferLineSeparator",
+    --                 "BufferLineIndicatorSelected",
+    --                 "NvimTreeNormal",
+    --                 "NvimTreeNormalNC",
+    --                 "NvimTreeWinSeparator",
+    --             },
+    --             exclude_groups = {}, 
+    --         })
+    --     end
+    -- }
 }

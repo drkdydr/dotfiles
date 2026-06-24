@@ -1,0 +1,143 @@
+#!/bin/bash
+
+
+# --lang -l flagi eklenecek (cpp için makefile vs için)
+# internetten daha profesyonelce yazılmış bash script'lere bak çünkü -vfx gibi desteğimiz yok ve $2 yaptığımız zaman
+
+VERSION="1.0"
+DEFAULT_NAME="my-project"
+
+printHelp(){
+cat << EOF
+Usage: project [OPTION]... PROJECT_NAME
+Creates new project in project folder.
+Creates project with name \"my-project\" if name is not provided.
+
+     -g, --git  [OPTION]           creates github repository to the project (private by default)
+                                   (works with gh, so you should install and authenticate with gh)
+     -d, --description=DESCRIPTION writes description to .todo file
+         --description DESCRIPTION 
+     -v, --version                 prints version info
+     -h, --help                    prints help message
+
+project is created according personal habits for personal usage
+cannot suit for everyone.
+EOF
+}
+
+printVer() {
+     echo -e "project version "$VERSION"\nMade by drk"
+}
+
+gitMode(){
+     git init
+     touch README.md .gitignore bin/.gitkeep src/.gitkeep
+     echo -e ".todo" >> .gitignore
+     { # bashsel anlamda ilk try/catch denemesi
+          gh repo create "$1" --"$2" --source . --remote=origin 2> /dev/null
+     } || {
+          echo -e "project: git repo cannot created.\nCheck your github account if there is repo with same name"
+          return
+     }
+     echo "github repo created."
+}
+
+defaultBehavior(){
+     # if  ! mkdir "$1" 2>&1> /dev/null  ; then
+     if ! mkdir "$1" > /dev/null 2>&1; then
+          echo -e "project: folder cannot created.\nCheck if any folder with same name exists"
+          exit 1
+     fi
+     cd "$1"
+     touch .todo
+     mkdir src bin
+}
+
+run(){
+     project_name="my-project"
+     name_provided=false
+     git_wanted=false
+     
+     #flags:
+     # -d "description"
+     # -g, --git
+     # -h, --help
+     # -v, --version
+          
+     while [[ $# -gt 0 ]]; do
+          case $1 in
+               -h|--help)
+                    printHelp
+                    exit 0
+                    ;;
+               -v|--version)
+                    printVer
+                    exit 0
+                    ;;
+               -g|--git)
+                    git_wanted=true
+                    case $2 in
+                         "public")
+                              visibility="public"
+                              shift
+                              ;;
+                         "private")
+                              visibility="private"
+                              shift
+                              ;;
+                         -* | --* | "")
+                              visibility="private"
+                              ;;
+                         *)
+                              echo "project: unknown argument '$2' for option '--git'"
+                              exit 1
+                              ;;
+                    esac
+                    shift
+                    ;;
+               -d|--description)
+                    case $2 in
+                         -* | --*)
+                              echo "project: description must be provided."
+                              exit 1
+                              ;;
+                         *)   
+                              description=$2
+                              shift
+                              shift
+                              ;;
+                    esac
+               ;;
+               -*|--**)
+                    case $1 in
+                         --description=*)
+                              description="${1#*=}"
+                              shift
+                              ;;
+                         *)
+                              echo "project: invalid option -- '$1'"
+                              exit 1
+                              ;;
+                    esac
+                    ;;
+               *)
+                    if [ "$name_provided" == false ]; then
+                         project_name=$1;
+                         name_provided=true;
+                         shift
+                    else
+                         echo -e "Error: too many arguments -- \"$1\"."
+                         exit 1
+                    fi
+                    ;;
+          esac
+     done
+     
+     defaultBehavior $project_name
+     echo $description > .todo
+     if [ "$git_wanted" == true ]; then
+          gitMode $project_name $visibility;
+     fi
+}
+
+run "$@" #burada argümanları vermediğim için run sürekli argümanları 0 algılıyordu
