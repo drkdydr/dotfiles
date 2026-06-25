@@ -191,3 +191,4 @@ help() {
 export EDITOR="nvim"
 export VISUAL="nvim"
 
+alias fixkbspeed="xset r rate 200 40"
