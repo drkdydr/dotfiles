@@ -145,6 +145,8 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+JAVA_HOME="/usr/lib/jvm/jdk-21.0.2"
+
 export PATH="$JAVA_HOME/bin:$PATH"; 
 export PATH="/opt/idea-IU-252.26199.169/bin:$PATH";
 export PATH="$HOME/.local/bin/my-scripts:$PATH";
@@ -192,3 +194,5 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 
 alias fixkbspeed="xset r rate 200 40"
+export PATH="$HOME/devel/flutter/bin:$PATH"
+export PATH="$HOME/bin/my:$PATH"

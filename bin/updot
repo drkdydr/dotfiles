@@ -44,13 +44,15 @@ cp -r $HOME/.config/nvim $DOTFILES_FOLDER
 
 #hyprland dotfiles
 cp -r $HOME/.config/hypr $DOTFILES_FOLDER
+cp -r $HOME/.config/kitty $DOTFILES_FOLDER
+cp -r $HOME/.config/picom $DOTFILES_FOLDER #for kitty transparency
 
 # shell dotfiles
 cp $HOME/.bashrc $DOTFILES_FOLDER
 cp $HOME/.zshrc $DOTFILES_FOLDER
 
 # backup bin folder
-cp -r $HOME/bin $DOTFILES_FOLDER
+cp $HOME/bin/my/* $DOTFILES_FOLDER/bin/
 
 # commit & push changes
 
