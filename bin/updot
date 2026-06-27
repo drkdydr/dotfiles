@@ -42,6 +42,8 @@ done
 # nvim dotfiles
 cp -r $HOME/.config/nvim $DOTFILES_FOLDER
 
+#test line
+
 #hyprland dotfiles
 cp -r $HOME/.config/hypr $DOTFILES_FOLDER
 cp -r $HOME/.config/kitty $DOTFILES_FOLDER
