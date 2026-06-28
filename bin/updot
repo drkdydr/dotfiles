@@ -43,9 +43,10 @@ done
 cp -r $HOME/.config/nvim $DOTFILES_FOLDER
 
 #hyprland dotfiles
-cp -r $HOME/.config/hypr $DOTFILES_FOLDER
-cp -r $HOME/.config/kitty $DOTFILES_FOLDER
-cp -r $HOME/.config/picom $DOTFILES_FOLDER #for kitty transparency
+cp -r $HOME/.config/hypr $DOTFILES_FOLDER/hyprland
+cp -r $HOME/.config/kitty $DOTFILES_FOLDER/hyprland
+cp -r $HOME/.config/picom $DOTFILES_FOLDER/hyprland   #for kitty transparency
+cp -r $HOME/.config/waybar $DOTFILES_FOLDER/hyprland
 
 # shell dotfiles
 cp $HOME/.bashrc $DOTFILES_FOLDER
