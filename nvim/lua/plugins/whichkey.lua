@@ -86,6 +86,19 @@ return {
             { "<leader>fg", "<cmd>Telescope live_grep <cr>", desc = "Find Text Pattern", nowait = true, remap = false },
             { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent Files", nowait = true, remap = false },
 
+            { "<leader>g", group = "Git / VGit" },
+  
+            -- Normal mod ('n') için alt tuş atamaları
+            { "<leader>gs", function() require('vgit').buffer_hunk_stage() end, desc = "Hunk Stage", mode = "n" },
+            { "<leader>gr", function() require('vgit').buffer_hunk_reset() end, desc = "Hunk Reset", mode = "n" },
+            { "<leader>gp", function() require('vgit').buffer_hunk_preview() end, desc = "Hunk Preview", mode = "n" },
+            { "<leader>gb", function() require('vgit').buffer_blame_preview() end, desc = "Blame Preview", mode = "n" },
+            { "<leader>gf", function() require('vgit').buffer_diff_preview() end, desc = "Buffer Diff Preview", mode = "n" },
+            { "<leader>gh", function() require('vgit').buffer_history_preview() end, desc = "Buffer History", mode = "n" },
+            { "<leader>gu", function() require('vgit').buffer_reset() end, desc = "Buffer Reset", mode = "n" },
+            { "<leader>gd", function() require('vgit').project_diff_preview() end, desc = "Project Diff Preview", mode = "n" },
+            { "<leader>gx", function() require('vgit').toggle_diff_preference() end, desc = "Toggle Diff Preference", mode = "n" },
+
             { "<leader>k", "<cmd>bdelete<CR>", desc = "Kill Buffer", nowait = true, remap = false },
 
             { "<leader>l", group = "LSP", nowait = true, remap = false },
@@ -103,6 +116,7 @@ return {
             { "<leader>p", "<cmd>Lazy<CR>", desc = "Plugin Manager", nowait = true, remap = false },
             { "<leader>q", "<cmd>wqall!<CR>", desc = "Quit", nowait = true, remap = false },
             { "<leader>r", "<cmd>lua vim.lsp.buf.format{async=true}<cr>", desc = "Reformat Code", nowait = true, remap = false },
+
             { "<leader>s", group = "Search", nowait = true, remap = false },
             { "<leader>sc", "<cmd>Telescope commands<cr>", desc = "Commands", nowait = true, remap = false },
             { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Find Help", nowait = true, remap = false },
