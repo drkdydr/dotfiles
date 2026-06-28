@@ -47,8 +47,9 @@ hl.on("hyprland.start", function ()
 --   hl.exec_cmd(terminal)
 --   hl.exec_cmd("nm-applet")
       hl.exec_cmd("waybar & hyprpaper")
-      hl.exec_once("zen")
-      hl.exec_once("hypridle")
+      hl.exec_cmd("zen-browser")
+      hl.exec_cmd("~/.config/hypr/scripts/waybar_peek.py")
+      hl.exec_cmd("hypridle")
 end)
 
 

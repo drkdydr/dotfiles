@@ -8,7 +8,7 @@
 * {
   /* `otf-font-awesome` is required to be installed for icons */
   font-family: JetBrainsMono Nerd Font;
-  font-size: 16px;
+  font-size: 13px;
 }
 
 window#waybar {
@@ -67,7 +67,7 @@ window#waybar {
 }
 
 #pulseaudio-slider trough {
-  min-height: 8px;
+  min-height: 7px;
   min-width: 75px;
   border-radius: 5px;
   background: @dark-7;
