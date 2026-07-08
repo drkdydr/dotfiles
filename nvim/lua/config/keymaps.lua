@@ -38,3 +38,8 @@ vim.keymap.set('n', '<S-CR>', 'O<Esc>')
 
 -- Değişken ismini her yerde değiştirmek için (LSP)
 vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, { desc = "Smart Rename" })
+
+-- prevent x and d from overwriting clipboard
+-- vim.keymap.set({ 'n', 'v' }, 'x', '"_x')
+-- vim.keymap.set({ 'n', 'v' }, 'd', '"_d')
+vim.keymap.set('v', 'p', '"_dP')

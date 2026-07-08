@@ -32,3 +32,9 @@ hl(0, "NormalFloat", { link = "TelescopeNormal" })
 -- onları da bu zincire ekleyebiliriz:
 hl(0, "WhichKeyFloat", { link = "TelescopeNormal" })
 hl(0, "MasonNormal", { link = "TelescopeNormal" })
+
+vim.filetype.add({
+  extension = {
+    arb = "json",
+  },
+})
