@@ -1,0 +1,4 @@
+# Defined via `source`
+function tide_config --wraps="tide configure --auto --style=Lean --prompt_colors='True color' --show_time='24-hour format' --lean_prompt_height='One line' --prompt_spacing=Compact --icons='Few icons' --transient=Yes;set -U tide_right_prompt_items \$tide_right_prompt_items[..-2] yazi zmx \$tide_right_prompt_items[-1]" --description "alias tide_config tide configure --auto --style=Lean --prompt_colors='True color' --show_time='24-hour format' --lean_prompt_height='One line' --prompt_spacing=Compact --icons='Few icons' --transient=Yes;set -U tide_right_prompt_items \$tide_right_prompt_items[..-2] yazi zmx \$tide_right_prompt_items[-1]"
+    tide configure --auto --style=Lean --prompt_colors='True color' --show_time='24-hour format' --lean_prompt_height='One line' --prompt_spacing=Compact --icons='Few icons' --transient=Yes;set -U tide_right_prompt_items $tide_right_prompt_items[..-2] yazi zmx $tide_right_prompt_items[-1] $argv
+end

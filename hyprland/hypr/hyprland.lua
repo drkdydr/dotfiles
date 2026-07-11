@@ -14,7 +14,14 @@
 ------------------
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
---
+
+-- enables more precise scaling
+hl.config({
+      debug = {
+            disable_scale_checks = true,
+      }
+})
+
 hl.monitor({
 	output = "",
 	mode = "preferred",
@@ -83,10 +90,12 @@ hl.env("HYPRCURSOR_SIZE", "24")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
-		gaps_in = 5,
-		gaps_out = 5,
+		gaps_in = 8,
+		gaps_out = 12,
 
-		border_size = 3,
+            -- disable borders 
+
+		 border_size = 0,
 
 		col = {
 			active_border = { colors = { "rgba(248, 248, 248, 0.8)", "rgba(140, 140, 140, 0.8)" }, angle = 45 },
@@ -103,23 +112,26 @@ hl.config({
 	},
 
 	decoration = {
-		rounding = 10,
+		rounding = 20,
 		rounding_power = 2,
 
 		-- Change transparency of focused and unfocused windows
-		active_opacity = 0.95,
-		inactive_opacity = 0.95,
+		active_opacity = 0.93,
+		inactive_opacity = 0.90,
+
 
 		shadow = {
 			enabled = true,
-			range = 4,
+			range = 25,
 			render_power = 3,
 			color = 0xee1a1a1a,
+			color_inactive = 0x001a1a1a,
+                  offset = {0,4}
 		},
 
 		blur = {
 			enabled = true,
-			size = 3,
+			size = 10,
 			passes = 1,
 			vibrancy = 0.1696,
 		},
@@ -129,6 +141,28 @@ hl.config({
 		enabled = true,
 	},
 })
+
+hl.window_rule({
+      match = {class = "kitty"},
+      -- border_size = 3
+})
+
+hl.window_rule({ 
+      match = { float = false, workspace = "w[v1]" },
+      border_size = 0,
+      rounding = 15,
+})
+-- window rule exceptions
+-- hl.window_rule({
+--       match = { class = ".*nvim.*" },
+--       opacity = "0.5",
+-- }) -- you can learn class names with "hyprctl clients" command
+
+-- hl.layer_rule({
+--   match        = { namespace = "kitty" },
+--   blur         = true,
+--   ignore_alpha = 0.5,
+-- })
 
 -- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
@@ -179,7 +213,7 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
 	dwindle = {
-		preserve_split = true, -- You probably want this
+		preserve_split = false, -- You probably want this
 	},
 })
 
@@ -229,9 +263,6 @@ hl.config({
 		},
 
 	},
-      debug = {
-            disable_scale_checks = true,
-      }
 })
 
 hl.gesture({
@@ -375,3 +406,4 @@ hl.window_rule({
 	move = "20 monitor_h-120",
 	float = true,
 })
+

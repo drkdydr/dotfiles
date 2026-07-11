@@ -1,0 +1,33 @@
+#name: "My Fish Theme"
+
+[dark]
+# Syntax Highlighting Colors
+fish_color_normal bdbdbd
+fish_color_command 8cc85f
+fish_color_keyword cf87e8
+fish_color_quote e0d586
+fish_color_redirection 82a6d6
+fish_color_end 82a6d6
+fish_color_error f25757
+fish_color_param c6c6c6
+fish_color_option c6c6c6
+fish_color_comment 949494
+
+# Autosuggestions and Prompt Elements
+fish_color_autosuggestion 949494
+fish_color_user 8cc85f
+fish_color_host 82a6d6
+fish_color_host_remote cf87e8
+fish_color_cancel f25757
+
+# Pager / Tab Completion Menu
+fish_pager_color_prefix 79dac8
+fish_pager_color_completion bdbdbd
+fish_pager_color_description 949494
+fish_pager_color_progress 80d4dc
+fish_pager_color_secondary_background 323437
+
+# Selection and Match Highlights
+fish_color_match 80d4dc
+fish_color_search_match --background=323437
+fish_color_selection --background=b2ceee --bold

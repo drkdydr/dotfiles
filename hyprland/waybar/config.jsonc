@@ -2,8 +2,8 @@
       // show only hover
       "start_hidden": false,
       "ipc": true,
-    // "on-sigusr1": "hide",
-    // "on-sigusr2": "show",
+      "on-sigusr1": "hide",
+      "on-sigusr2": "show",
 
     "layer": "top",
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
@@ -15,7 +15,7 @@
         "format-icons": {
             "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
             "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
-        },
+        }
     },
     "bluetooth": {
       "format": "",
@@ -36,7 +36,7 @@
         "interval": 30,
         "format": " {percentage}%",
         "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
-        "on-click": "exec kitty --title=htop -e htop",
+        "on-click": "exec kitty --title=htop -e htop"
     },
     "network": {
         "format": "",
@@ -48,7 +48,7 @@
         "tooltip-format-ethernet": "{ifname} ",
         "tooltip-format-disconnected": "󰖪",
         "max-length": 50,
-        "on-click": "exec nmtui",
+        "on-click": "exec kitty --title=nmtui -e nmtui"
     },
     "clock": {
       "format": "{:%a_%d_%b %H:%M}",
@@ -57,7 +57,7 @@
         "format": {
           "today": "<span color='#75f1fa'><b>{}</b></span>"
         }
-      },
+      }
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
@@ -67,7 +67,7 @@
         },
         "scroll-step": 1,
         "ignored-sinks": ["Easy Effects Sink"],
-        "on-click": "pavucontrol",
+        "on-click": "pavucontrol"
     },
     "pulseaudio/slider": {
         "min": 0,
@@ -90,6 +90,6 @@
       "hyprland/window": {
           "format": " {title} ",
           "max-length": 40,
-          "separate-outputs": true,
+          "separate-outputs": true
       }
 }
