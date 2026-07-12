@@ -179,7 +179,7 @@ export LD_LIBRARY_PATH="/opt/gtk/lib64:/opt/gtk/lib:$LD_LIBRARY_PATH";
 
 export PATH="$HOME/bin:$PATH"
 
-DOTTEMP="$HOME/Desktop/project/.temp/"
+DOTTEMP="$HOME/projects/.temp/"
 
 help() {
     if [[ "$1" = "legame" || "$1" == "fuck" || "$1" == "tudu" || "$1" == "project" ]]; then

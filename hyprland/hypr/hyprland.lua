@@ -122,7 +122,7 @@ hl.config({
 
 		shadow = {
 			enabled = true,
-			range = 25,
+			range = 22,
 			render_power = 3,
 			color = 0xee1a1a1a,
 			color_inactive = 0x001a1a1a,
@@ -142,16 +142,23 @@ hl.config({
 	},
 })
 
-hl.window_rule({
-      match = {class = "kitty"},
+-- hl.window_rule({
+      -- match = {class = "kitty"},
       -- border_size = 3
-})
+-- })
 
+-- hl.on("window.active", function ()
+      --hl.get_active_window()
+--end)
+
+-- smart gaps
 hl.window_rule({ 
       match = { float = false, workspace = "w[v1]" },
       border_size = 0,
       rounding = 15,
+      -- no_shadow = true 
 })
+
 -- window rule exceptions
 -- hl.window_rule({
 --       match = { class = ".*nvim.*" },
@@ -406,4 +413,5 @@ hl.window_rule({
 	move = "20 monitor_h-120",
 	float = true,
 })
+
 

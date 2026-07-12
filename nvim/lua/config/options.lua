@@ -7,6 +7,7 @@ vim.opt.wrap = true -- display lines as single line
 vim.opt.scrolloff = 12 -- number of lines to keep above/below cursor
 vim.opt.sidescrolloff = 9 -- number of columns to keep to the left/right of cursor
 
+
 -- Tab spacing/behavior
 vim.opt.expandtab = true -- convert tabs to spaces
 vim.opt.shiftwidth = 6 -- number of spaces inserted for each indentation level
@@ -40,3 +41,5 @@ vim.opt.smartcase = true -- match case if explicitly stated
 
 -- to move debug symbol to the left of line numbers
 vim.opt.statuscolumn = "%s%l "
+
+vim.opt.shell = "fish"
