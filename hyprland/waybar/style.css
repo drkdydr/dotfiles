@@ -1,89 +1,89 @@
-@define-color highlight rgba(248, 248, 248, 0.8);
-@define-color dark-9 rgba(24, 24, 27, 0.7);
-@define-color dark-8 rgba(39, 39, 42, 1);
-@define-color dark-7 rgba(63, 63, 70, 1);
-@define-color dark-6 rgba(82, 82, 91, 1);
-@define-color dark-5 rgba(113, 113, 122, 1);
+/* # By knightfall01 on Github as a part of https://github.com/Knightfall01/Hyprland-config */
+
 
 * {
-  /* `otf-font-awesome` is required to be installed for icons */
-  font-family: JetBrainsMono Nerd Font;
-  font-size: 13px;
+  border: none;
+  font-family: 'JetBrainsMono Nerd Font' , 'Symbols Only';
+  font-size: 16px;
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+  min-height: 30px;
+  /* height: 30px; */
 }
 
 window#waybar {
-  background-color: @dark-9;
-  color: white;
+  background: transparent;
+}
+
+#custom-arch, #workspaces {
+  border-radius: 10px;
+  background-color: #191a24;
+  color: #c0caf5;
+  margin-top: 15px;
+	margin-right: 15px;
+  padding-top: 1px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#custom-arch {
+  font-size: 20px;
+	margin-left: 15px;
 }
 
 #workspaces button {
-  padding: 1px;
-  margin: 7px 0px 7px 7px;
-  background: transparent;
-  border-radius: 18px;
-  color: white;
+  background: #191a24;
+  color: #c0caf5;
 }
 
 #workspaces button.active {
-  background: @highlight;
-  color: black;
-  font-weight: 700;
-  padding: 3px 20px;
-} 
-
-#submap,
-#battery,
-#bluetooth,
-#network,
-#cpu,
-#memory,
-#volume {
-  border-radius: 8px;
-  padding: 5px 8px;
-  background: @dark-8;
-  margin: 5px 10px 5px 0px;
+  color: #2ac3de;
 }
 
-#submap,
-#workspaces button.urgent {
-  background: rgba(227, 81, 73, 1);
-  color: black;
+#clock, #backlight, #custom-cava,#temperature, #cpu, #pulseaudio, #network, #battery , #tray, #memory ,#custom-playerctl{
+  border-radius: 10px;
+  background-color: #191a24;
+  color: #c0caf5;
+  margin-top: 15px;
+  padding-left: 9px;
+  padding-right: 9px;
+  margin-right: 15px;
 }
 
-#pulseaudio-slider {
-  padding: 0px;
-  margin: 0px;
-  margin-left: 8px;
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: black;
+  }
 }
 
-#pulseaudio-slider slider {
-  all: unset;
-  min-height: 0;
-  min-width: 0;
-  opacity: 0;
-  background-image: none;
-  border: none;
-  box-shadow: none;
-}
-
-#pulseaudio-slider trough {
-  min-height: 7px;
-  min-width: 75px;
-  border-radius: 5px;
-  background: @dark-7;
-}
-
-#pulseaudio-slider highlight {
-  min-width: 10px;
-  border-radius: 5px;
-  background: @highlight;
-}
-
-tooltip {
-  background: @dark-9;
-  border-radius: 5px;
-}
-
-tooltip label {
+#battery.warning:not(.charging) {
+  background: #f38ba8;
   color: white;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
+
+/* #pulseaudio { */
+/*   font-size: 20px; */
+/* 	margin-left: 15px; */
+/* } */
+
+#tray{
+  padding-right: 8px;
+  padding-left: 10px;
+}
+
+/* #pulseaudio { */
+/*   border-radius: 10px; */
+/*   background-color: #11111b; */
+/*   color: #cba6f7; */
+/*   margin-top: 15px; */
+/* 	margin-right: 15px; */
+/*   padding-top: 1px; */
+/*   padding-left: 10px; */
+/*   padding-right: 10px; */
+/* } */
+
