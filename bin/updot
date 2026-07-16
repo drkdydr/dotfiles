@@ -9,11 +9,13 @@ usage: updot [OPTION]
 pushes dotfile changes to github
 options:
       -m, --message <commit_message> : specifies custom commit message
+      --no-git                       : skips git operations
 
 EOF
 }
 
 message=$DEFAULT_MSG
+no_git=0
 
 while [[ $# -gt 0 ]]; do
       case $1 in
@@ -29,6 +31,10 @@ while [[ $# -gt 0 ]]; do
 
                   message=$2
                   shift 2
+                  ;;
+            --no-git)
+                  no_git=1
+                  shift 1
                   ;;
             *)
                   echo "updot : unknown argument"
@@ -59,7 +65,9 @@ cp $HOME/bin/my/* $DOTFILES_FOLDER/bin/
 
 # commit & push changes
 
-cd $DOTFILES_FOLDER
-git add .
-git commit -m "$message"
-git push
+if [[ $no_git -eq 0 ]]; then
+      cd $DOTFILES_FOLDER
+      git add .
+      git commit -m "$message"
+      git push
+fi

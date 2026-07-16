@@ -7,4 +7,4 @@ SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR _tide_left_items:\x1d
 SETUVAR _tide_prompt_9726:\x1b\x5b49m\x1e\x1b\x5b49m
 SETUVAR _tide_right_items:\x1d
-SETUVAR fish_user_paths:/etc/oha\x2dscript\x1e/home/dydr/devel/flutter/bin\x1e/home/dydr/bin/my\x1e/home/dydr/bin
+SETUVAR fish_user_paths:/home/dydr/\x2ecargo/bin\x1e/etc/oha\x2dscript\x1e/home/dydr/devel/flutter/bin\x1e/home/dydr/bin/my\x1e/home/dydr/bin
