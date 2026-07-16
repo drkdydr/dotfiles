@@ -10,16 +10,16 @@
             "hyprland/workspaces",
             "hyprland/window"
       ],
-      "modules-center": [
-      ],
+      "modules-center": [],
       "modules-right": [
             "memory",
             "cpu",
             "hyprland/submap",
             "bluetooth",
-            "network",
+            "group/quick-net", // old "network" 
             "group/volume",
-            "battery"
+            "battery",
+            "custom/power"
       ],
       "battery": {
             "interval": 60,
@@ -53,6 +53,7 @@
                   ]
             }
       },
+
       "bluetooth": {
             "format": "",
             "format-disabled": "", // an empty format will hide the module
@@ -74,16 +75,33 @@
             "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
             "on-click": "exec kitty --title=htop -e htop"
       },
-      "network": {
-           "format": "{ifname}",
-            "format-wifi": "<span color='#d9dadd'>  </span>{essid}({signalStrength}%)",
-            "format-ethernet": "{ipaddr}/{cidr}  ",
-            "format-disconnected": "<span color='#f25757'>󰖪  no network</span>",
-            "tooltip-format": "󰊗  {ifname} via {gwaddr}",
-            "tooltip-format-wifi": "  {essid} ({signalStrength}%)",
-            "tooltip-format-ethernet": "  {ifname}",
-            "tooltip-format-disconnected": "󰖪  no network",
-            "max-length": 50,
+
+      // Grup Tanımı (Drawer)
+      "group/quick-net": {
+            "orientation": "horizontal",
+            "drawer": {
+                  "transition-duration": 500, // Genişleme hızı (milisaniye)
+                  "transition-left-to-right": true // Sola doğru açılması için (sağda duruyorsa)
+            },
+            "modules": [
+                  "network#icon", // Her zaman görünen ikon
+                  "network#text" // Hover yapınca açılan yazı
+            ]
+      },
+
+      "network#icon": {
+            "format-wifi": "<span color='#d9dadd'> </span>",
+            "format-ethernet": "<span color='#d9dadd'> </span>",
+            "format-disconnected": "<span color='#999a9e'>󰖪 </span>",
+            "tooltip": false, // Tooltip'i kapatıyoruz çünkü zaten ismi açılacak
+            "on-click": "exec kitty --title=nmtui -e nmtui"
+      },
+
+      "network#text": {
+            "format-wifi": "{essid} ({signalStrength}%)",
+            "format-ethernet": "{ipaddr}/{cidr}",
+            "format-disconnected": "no network",
+            "tooltip": false,
             "on-click": "exec kitty --title=nmtui -e nmtui"
       },
       "clock": {
@@ -118,19 +136,16 @@
             ],
             "on-click": "pavucontrol"
       },
-
       "pulseaudio/slider": {
             "min": 0,
             "max": 100,
             "orientation": "horizontal"
       },
-
       "pulseaudio#percent": {
             "format": "{volume}%",
             "format-muted": "Mute",
             "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
       },
-
       "group/volume-drawer": {
             "orientation": "horizontal",
             "drawer": { // slider will appear on hover
@@ -142,7 +157,6 @@
                   "pulseaudio/slider"
             ]
       },
-
       "group/volume": {
             "orientation": "horizontal",
             "class": "volume-group",
@@ -151,16 +165,21 @@
                   "pulseaudio#percent"
             ]
       },
-
       // active window info
       "hyprland/window": {
             "format": " {title} ",
             "max-length": 40,
             "separate-outputs": true
       },
-
       "custom/arch": {
             "format": " ",
             "on-click": "sh /home/knightfall/.config/hypr/scripts/exec_wofi application_launcher"
+      },
+      "custom/power": {
+            "format": "<span color='#fc8983' >⏻</span>",
+            "on-click": "exec wlogout",
+            "tooltip": true,
+            "tooltip-format":"Logout Menu"
       }
+
 }

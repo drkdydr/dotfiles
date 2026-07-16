@@ -6,19 +6,19 @@
 @define-color dark-5 rgba(113, 113, 122, 1);
 
 * {
-  border: none;
-  font-family: 'JetBrainsMono Nerd Font' , 'Symbols Only';
-  font-size: 16px;
-  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
-   min-height: 25px;
-  /* height: 30px; */
-   /*padding: 5px 10px; bu eklenecek*/
+      border: none;
+      font-family: 'JetBrainsMono Nerd Font', 'Symbols Only';
+      font-size: 16px;
+      font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+      min-height: 25px;
+      /* height: 30px; */
+      /*padding: 5px 10px; bu eklenecek*/
 
 }
 
 window#waybar {
-  background: transparent;
-  margin: 0px;
+      background: transparent;
+      margin: 0px;
 }
 
 
@@ -27,39 +27,70 @@ window#waybar {
 }
 
 #workspaces button {
-      border-radius : 15px;
-  background-color: rgba(8,8,8,0.4);
-  color: #999a9e;
-  padding-left: 12px;
-  padding-right: 12px;
-  transition: all 0.1s linear;
-  margin: 0px 3px;
+      border-radius: 15px;
+      background-color: rgba(8, 8, 8, 0.4);
+      color: #999a9e;
+      padding-left: 12px;
+      padding-right: 12px;
+      transition: all 0.1s linear;
+      margin: 0px 3px;
 }
 
 #workspaces button.active {
-  color: #d9dadd;
-  background-color: rgba(8,8,8,0.7);
-  font-weight: 700;
-  padding: 3px 25px;
-  transition: all 0.1s linear;
-} 
+      color: #d9dadd;
+      background-color: rgba(8, 8, 8, 0.7);
+      font-weight: 700;
+      padding: 3px 25px;
+      transition: all 0.1s linear;
+}
 
+#quick-net {
+      background-color: rgba(8, 8, 8, 0.6);
+      /* Kullandığınız tema rengi */
+      border-radius: 8px;
+      padding: 5px 10px;
+      margin: 12px 12px 0px 0px;
+}
+
+/* İkonun stili */
+#network.icon {
+      padding: 0px 4px;
+}
+
+/* Hover yapılmadığı anlarda metnin gizlenirkenki yumuşak geçişi */
+#network.text {
+      padding: 0px 2px;
+      color: #d9dadd;
+      transition: all 0.3s ease-in-out;
+}
+
+/* Bağlantı koptuğundaki kırmızı "no network" yazısının rengi */
+#network\.text.disconnected {
+      color: #fc8983;
+}
 
 /* GENERAL APPLICATION DESIGN */
 
 #submap,
 #battery,
 #bluetooth,
-#network,
 #cpu,
 #memory,
 #volume,
-#clock 
+#clock,
+#quick-net
 {
-  border-radius: 10px;
-  padding: 5px 8px;
-  background-color: rgba(8,8,8,0.6);
-  color: #d9dadd;
+      border-radius: 10px;
+      padding: 5px 8px;
+      background-color: rgba(8, 8, 8, 0.6);
+      color: #d9dadd;
+}
+
+#custom-power {
+      border-radius: 18px;
+      padding: 5px 12px;
+      background-color: rgba(8, 8, 8, 0.6);
+      color: #d9dadd;
 }
 
 #window {
@@ -68,19 +99,18 @@ window#waybar {
 }
 
 #submap:hover,
-/* #battery:hover, */ /*tıklanmıyor*/
+/* #battery:hover, */
+/*tıklanmıyor*/
 #bluetooth:hover,
-#network:hover,
 #cpu:hover,
 #memory:hover,
 #volume:hover,
-#clock:hover
+#clock:hover,
+#quick-net:hover,
+#custom-power:hover
 {
-  background-color: rgba(8,8,8,0.7);
+      background-color: rgba(8, 8, 8, 0.7);
       transition: background-color 0.2s linear;
-}
-
-#workspaces button {
 }
 
 /* LEFT SIDE APPLICATION ALLOCATORS */
@@ -90,7 +120,8 @@ window#waybar {
       /* zaten hyprland'den gelen waybar ile pencere arası bir boşluk var*/
 }
 
-#workspaces, #window {
+#workspaces,
+#window {
       padding: 0px;
       margin: 12px 10px 0px 10px;
 }
@@ -100,10 +131,11 @@ window#waybar {
 #submap,
 #battery,
 #bluetooth,
-#network,
 #cpu,
 #memory,
-#volume
+#volume, 
+#quick-net,
+#custom-power
 {
       margin: 12px 12px 0px 0px;
 }
@@ -114,46 +146,45 @@ window#waybar {
 
 #submap,
 #workspaces button.urgent {
-  background: rgba(227, 81, 73, 1);
-  color: black;
+      background: rgba(227, 81, 73, 1);
+      color: black;
 }
 
 #pulseaudio-slider {
-  padding: 0px;
-  margin: 0px;
-  margin-left: 8px;
+      padding: 0px;
+      margin: 0px;
+      margin-left: 8px;
 }
 
 #pulseaudio-slider slider {
-  all: unset;
-  min-height: 0;
-  min-width: 0;
-  opacity: 0;
-  background-image: none;
-  border: none;
-  box-shadow: none;
+      all: unset;
+      min-height: 0;
+      min-width: 0;
+      opacity: 0;
+      background-image: none;
+      border: none;
+      box-shadow: none;
 }
 
 #pulseaudio-slider trough {
-  min-height: 4px;
-  min-width: 75px;
-  border-radius: 5px;
-  background: @dark-7;
+      min-height: 4px;
+      min-width: 75px;
+      border-radius: 5px;
+      background: @dark-7;
 }
 
 #pulseaudio-slider highlight {
-  min-height: 4px;
-  min-width: 5px;
-  border-radius: 5px;
-  background: @highlight;
+      min-height: 4px;
+      min-width: 5px;
+      border-radius: 5px;
+      background: @highlight;
 }
 
 tooltip {
-  background: @dark-9;
-  border-radius: 5px;
+      background: @dark-9;
+      border-radius: 5px;
 }
 
 tooltip label {
-  color: white;
+      color: white;
 }
-
