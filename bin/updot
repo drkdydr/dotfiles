@@ -69,5 +69,5 @@ if [[ $no_git -eq 0 ]]; then
       cd $DOTFILES_FOLDER
       git add .
       git commit -m "$message"
-      git push origin main
+      git push
 fi
