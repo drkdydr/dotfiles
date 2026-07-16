@@ -44,6 +44,7 @@ window#waybar {
   transition: all 0.1s linear;
 } 
 
+
 /* GENERAL APPLICATION DESIGN */
 
 #submap,
@@ -107,6 +108,10 @@ window#waybar {
       margin: 12px 12px 0px 0px;
 }
 
+#pulseaudio.percent {
+      padding-left: 10px;
+}
+
 #submap,
 #workspaces button.urgent {
   background: rgba(227, 81, 73, 1);
@@ -130,14 +135,15 @@ window#waybar {
 }
 
 #pulseaudio-slider trough {
-  min-height: 5px;
+  min-height: 4px;
   min-width: 75px;
   border-radius: 5px;
   background: @dark-7;
 }
 
 #pulseaudio-slider highlight {
-  min-width: 10px;
+  min-height: 4px;
+  min-width: 5px;
   border-radius: 5px;
   background: @highlight;
 }

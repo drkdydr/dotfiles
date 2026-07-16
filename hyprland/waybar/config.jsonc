@@ -97,7 +97,7 @@
             }
       },
       "pulseaudio": {
-            "format": "{volume}% {icon}",
+            "format": "{icon}",
             "format-muted": "",
             "format-icons": {
                   "headphone": " ",
@@ -117,12 +117,20 @@
             ],
             "on-click": "pavucontrol"
       },
+
       "pulseaudio/slider": {
             "min": 0,
             "max": 100,
             "orientation": "horizontal"
       },
-      "group/volume": {
+
+      "pulseaudio#percent": {
+            "format": "{volume}%",
+            "format-muted": "Mute",
+            "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+      },
+
+      "group/volume-drawer": {
             "orientation": "horizontal",
             "drawer": { // slider will appear on hover
                   "transition-duration": 500,
@@ -133,6 +141,16 @@
                   "pulseaudio/slider"
             ]
       },
+
+      "group/volume": {
+            "orientation": "horizontal",
+            "class": "volume-group",
+            "modules": [
+                  "group/volume-drawer",
+                  "pulseaudio#percent"
+            ]
+      },
+
       // active window info
       "hyprland/window": {
             "format": " {title} ",
