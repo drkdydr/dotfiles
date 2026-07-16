@@ -34,6 +34,7 @@ while [[ $# -gt 0 ]]; do
                   ;;
             --no-git)
                   no_git=1
+                  shift 1
                   ;;
             *)
                   echo "updot : unknown argument"
@@ -63,14 +64,10 @@ cp -r $HOME/.config/fish $DOTFILES_FOLDER
 cp $HOME/bin/my/* $DOTFILES_FOLDER/bin/
 
 # commit & push changes
-if [[ $no_git -eq 1 ]]; then
-      echo "no_git"
-fi
-return
 
 if [[ $no_git -eq 0 ]]; then
       cd $DOTFILES_FOLDER
       git add .
       git commit -m "$message"
-      git push
+      git push origin main
 fi
