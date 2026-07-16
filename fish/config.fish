@@ -56,6 +56,7 @@ fish_add_path /etc/oha-script # oha
 fish_add_path $JAVA_HOME/bin:$PATH; 
 fish_add_path /opt/idea-IU-252.26199.169/bin:$PATH;
 fish_add_path $HOME/.local/bin/my-scripts:$PATH;
+fish_add_path $HOME/.cargo/bin/
 
 # ========= ALIASES ==========
 

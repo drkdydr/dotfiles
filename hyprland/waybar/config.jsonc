@@ -4,94 +4,348 @@
       "ipc": true,
       "on-sigusr1": "hide",
       "on-sigusr2": "show",
-
-    "layer": "top",
-    "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-center": ["clock"],
-    "modules-right": ["hyprland/submap", "group/volume", "battery", "bluetooth", "network", "cpu", "memory"],
-    "battery": {
-        "interval": 60,
-        "format": "{icon} {capacity} ",
-        "format-icons": {
-            "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-            "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
-        }
-    },
-    "bluetooth": {
-      "format": "",
-      "format-disabled": "", // an empty format will hide the module
-      "format-connected": " {num_connections}",
-      "tooltip-format": "{controller_alias}\t{controller_address}",
-      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-      "on-click": "exec kitty --title=bluetui -e bluetui"
-    },
-    "cpu": {
-        "interval": 10,
-        "format": " {}%",
-        "max-length": 10,
-        "on-click": "exec kitty --title=btop -e btop"
-    },
-    "memory": {
-        "interval": 30,
-        "format": " {percentage}%",
-        "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
-        "on-click": "exec kitty --title=htop -e htop"
-    },
-    "network": {
-        "format": "",
-        "format-wifi": "",
-        "format-ethernet": "",
-        "format-disconnected": "󰤭", //An empty format will hide the module.
-        "tooltip-format": "{ifname} via {gwaddr} 󰊗",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-        "tooltip-format-ethernet": "{ifname} ",
-        "tooltip-format-disconnected": "󰖪",
-        "max-length": 50,
-        "on-click": "exec kitty --title=nmtui -e nmtui"
-    },
-    "clock": {
-      "format": "{:%a_%d_%b %H:%M}",
-      "tooltip-format": "<tt><small>{calendar}</small></tt>",
-      "calendar": {
-        "format": {
-          "today": "<span color='#75f1fa'><b>{}</b></span>"
-        }
-      }
-    },
-    "pulseaudio": {
-        "format": "{volume}% {icon}",
-        "format-muted": "",
-        "format-icons": {
-            "default": ["", ""]
-        },
-        "scroll-step": 1,
-        "ignored-sinks": ["Easy Effects Sink"],
-        "on-click": "pavucontrol"
-    },
-    "pulseaudio/slider": {
-        "min": 0,
-        "max": 100,
-        "orientation": "horizontal"
-    },
-
-    "group/volume": {
-      "orientation": "horizontal",
-      "drawer": { // slider will appear on hover
-        "transition-duration": 500,
-        "transition-left-to-right": true
+      "layer": "top",
+      "modules-left": [
+            "clock",
+            "hyprland/workspaces",
+            "hyprland/window"
+      ],
+      "modules-center": [
+      ],
+      "modules-right": [
+            "memory",
+            "cpu",
+            "hyprland/submap",
+            "bluetooth",
+            "network",
+            "group/volume",
+            "battery"
+      ],
+      "battery": {
+            "interval": 60,
+            "format": "{icon} {capacity}",
+            "format-icons": {
+                  "default": [
+                        "󰂎",
+                        "󰁺",
+                        "󰁻",
+                        "󰁼",
+                        "󰁽",
+                        "󰁾",
+                        "󰁿",
+                        "󰂀",
+                        "󰂁",
+                        "󰂂",
+                        "󰁹"
+                  ],
+                  "charging": [
+                        "󰢟",
+                        "󰢜",
+                        "󰂆",
+                        "󰂇",
+                        "󰂈",
+                        "󰢝",
+                        "󰂉",
+                        "󰢞",
+                        "󰂊",
+                        "󰂋",
+                        "󰂅"
+                  ]
+            }
       },
-      "modules": [
-        "pulseaudio",
-        "pulseaudio/slider"
-      ]
-    },
-    // active window info
+      "bluetooth": {
+            "format": "",
+            "format-disabled": "", // an empty format will hide the module
+            "format-connected": " {num_connections}",
+            "tooltip-format": "{controller_alias}\t{controller_address}",
+            "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+            "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+            "on-click": "exec kitty --title=bluetui -e bluetui"
+      },
+      "cpu": {
+            "interval": 10,
+            "format": " {}%",
+            "max-length": 10,
+            "on-click": "exec kitty --title=btop -e btop"
+      },
+      "memory": {
+            "interval": 30,
+            "format": " {percentage}%",
+            "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
+            "on-click": "exec kitty --title=htop -e htop"
+      },
+      "network": {
+           "format": "{ifname}",
+            "format-wifi": "<span color='#d9dadd'>  </span>{essid}({signalStrength}%)",
+            "format-ethernet": "{ipaddr}/{cidr}  ",
+            "format-disconnected": "<span color='#f25757'>󰖪  no network</span>",
+            "tooltip-format": "󰊗  {ifname} via {gwaddr}",
+            "tooltip-format-wifi": "  {essid} ({signalStrength}%)",
+            "tooltip-format-ethernet": "  {ifname}",
+            "tooltip-format-disconnected": "󰖪  no network",
+            "max-length": 50,
+            "on-click": "exec kitty --title=nmtui -e nmtui"
+      },
+      "clock": {
+            "format": "<span color='#d9dadd'> </span>{:%H:%M}",
+            "format-alt": "<span foreground='#d9dadd'> </span><span>{:%I:%M %p %a %d}</span>",
+            "tooltip-format": "<tt><small>{calendar}</small></tt>",
+            "calendar": {
+                  "format": {
+                        "today": "<span color='#75f1fa'><b>{}</b></span>"
+                  }
+            }
+      },
+      "pulseaudio": {
+            "format": "{volume}% {icon}",
+            "format-muted": "",
+            "format-icons": {
+                  "headphone": " ",
+                  "hands-free": " ",
+                  "headset": " ",
+                  "phone": " ",
+                  "portable": " ",
+                  "car": " ",
+                  "default": [
+                        " ",
+                        " "
+                  ]
+            },
+            "scroll-step": 1,
+            "ignored-sinks": [
+                  "Easy Effects Sink"
+            ],
+            "on-click": "pavucontrol"
+      },
+      "pulseaudio/slider": {
+            "min": 0,
+            "max": 100,
+            "orientation": "horizontal"
+      },
+      "group/volume": {
+            "orientation": "horizontal",
+            "drawer": { // slider will appear on hover
+                  "transition-duration": 500,
+                  "transition-left-to-right": true
+            },
+            "modules": [
+                  "pulseaudio",
+                  "pulseaudio/slider"
+            ]
+      },
+      // active window info
       "hyprland/window": {
-          "format": " {title} ",
-          "max-length": 40,
-          "separate-outputs": true
+            "format": " {title} ",
+            "max-length": 40,
+            "separate-outputs": true
+      },
+
+      "custom/arch": {
+            "format": " ",
+            "on-click": "sh /home/knightfall/.config/hypr/scripts/exec_wofi application_launcher"
       }
-
-
 }
+/*
+{
+      "layer": "top",
+      "height": 10,
+      "modules-left": [
+            "custom/arch",
+            "hyprland/workspaces",
+            "memory"
+      ],
+      "modules-center": [
+            "custom/playerctl"
+      ],
+      "modules-right": [
+            "backlight",
+            "group/volume",
+            "battery",
+            "network",
+            "clock"
+      ],
+      "custom/cava_test": {
+            "format": "{}",
+            "exec": "~/.config/waybar/scripts/sound/expand cava-icon"
+      },
+      "hyprland/workspaces": {
+            "format": "{icon}",
+            "on-click": "activate",
+            "all-outputs": true,
+            "persistent_workspaces": {
+                  "1": [],
+                  "2": [],
+                  "3": [],
+                  "4": [],
+                  "5": [],
+                  "6": [],
+                  "7": [],
+                  "8": [],
+                  "9": [],
+                  "10": []
+            },
+            "format-icons": {
+                  "1": "1",
+                  "2": "2",
+                  "3": "3",
+                  "4": "4",
+                  "5": "5",
+                  "6": "6",
+                  "7": "7",
+                  "8": "8",
+                  "9": "9",
+                  "10": "1〇"
+            }
+      },
+      "clock": {
+            "format": "<span color='#d9dadd'> </span>{:%H:%M}",
+            "format-alt": "<span foreground='#d9dadd'> </span><span>{:%I:%M %p %a %d}</span>",
+            "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+      },
+      "custom/cava": {
+            "format": "<span color='#f7768e'></span> {volume}%",
+            "exec": "sh ~/.config/polybar/scripts/cava.sh",
+            "label": "%output%"
+      },
+      "backlight": {
+            "device": "amdgpu_b10",
+            "format": "<span color='#d9b172'>{icon}</span> {percent}%",
+            "format-icons": [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+            ]
+      },
+      "custom/sound": {
+            "format": "<span color='#d9dadd'> </span>{}",
+            "exec": "custom-alsa.sh",
+      },
+      "network": {
+            "interface": "wlo1",
+            "format": "{ifname}",
+            "format-wifi": "<span color='#d9dadd'>  </span>{essid}({signalStrength}%)",
+            "format-ethernet": "{ipaddr}/{cidr} ",
+            "format-disconnected": "<span color='#ff005f'>󰖪 </span>No Network",
+            "on-click": "kitty nmtui"
+      },
+      "battery": {
+            "format": "<span color='#d9dadd'>{icon}</span> {capacity}%",
+            //"format-alt": "{time} {icon}",
+            "format-icons": {
+                  "default": [
+                        "󰂎",
+                        "󰁺",
+                        "󰁻",
+                        "󰁼",
+                        "󰁽",
+                        "󰁾",
+                        "󰁿",
+                        "󰂀",
+                        "󰂁",
+                        "󰂂",
+                        "󰁹"
+                  ],
+                  "charging": [
+                        "󰢟",
+                        "󰢜",
+                        "󰂆",
+                        "󰂇",
+                        "󰂈",
+                        "󰢝",
+                        "󰂉",
+                        "󰢞",
+                        "󰂊",
+                        "󰂋",
+                        "󰂅"
+                  ]
+            },
+            "format-charging": "<span color='#a8cd76'></span> {capacity}%"
+      },
+      "pulseaudio": {
+            "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+            "format": "<span color='#d9dadd'>{icon}</span>",
+            "format-muted": "<span color='#d9dadd'></span>",
+            "format-icons": {
+                  "headphone": "",
+                  "hands-free": "",
+                  "headset": "",
+                  "phone": "",
+                  "portable": "",
+                  "car": "",
+                  "default": [
+                        "",
+                        ""
+                  ]
+            },
+            "on-click-right": "pavucontrol"
+      },
+      // 2. Modül: Slider
+      "pulseaudio/slider": {
+            "min": 0,
+            "max": 100,
+            "orientation": "horizontal"
+      },
+      // 3. Modül: Sadece Yüzde
+      "pulseaudio#percent": {
+            "format": "{volume}%",
+            "format-muted": "Mute",
+            "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+      },
+      // Grup Modülü (Sıralama: Logo + Slider + Yüzde)
+      "group/volume-drawer": {
+            "orientation": "horizontal",
+            "drawer": {
+                  "transition-duration": 400,
+                  "children-class": "not-visible",
+                  "transition-left-to-right": true
+            },
+            "modules": [
+                  "pulseaudio",
+                  "pulseaudio/slider"
+            ]
+      },
+      // Dış grup: drawer grubu + percentage her zaman görünür
+      "group/volume": {
+            "orientation": "horizontal",
+            "class": "volume-group",
+            "modules": [
+                  "group/volume-drawer",
+                  "pulseaudio#percent"
+            ]
+      },
+      "memory": {
+            "format": "<span foreground='#9ece6a'></span> {}%",
+            "on-click": "kitty htop"
+      },
+      "tray": {
+            "icon-size": 20,
+            "reverse-direction": true,
+            "spacing": 6
+      },
+      "cpu": {
+            "format": "<span foreground='#ff005f'></span>  {usage}%"
+      },
+      "temperature": {
+            "critical-threshold": 80,
+            "format": "<span foreground='#5d73ca'></span> {temperatureC}°C"
+      },
+      "custom/playerctl": {
+            "format": "{icon}  <span>{}</span>",
+            "return-type": "json",
+            "max-length": 55,
+            "exec": "playerctl -a metadata --format '{\"text\": \"  {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+            "on-click-middle": "playerctl previous",
+            "on-click": "playerctl play-pause",
+            "on-click-right": "playerctl next",
+            "format-icons": {
+                  "Paused": "<span foreground='#bb9af7'></span>",
+                  "Playing": "<span foreground='#bb9af7'></span>"
+            }
+      }
+}*/
