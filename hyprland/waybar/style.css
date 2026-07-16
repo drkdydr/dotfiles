@@ -12,6 +12,8 @@
   font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
    min-height: 25px;
   /* height: 30px; */
+   /*padding: 5px 10px; bu eklenecek*/
+
 }
 
 window#waybar {
@@ -110,21 +112,16 @@ window#waybar {
       padding-left: 10px;
 }
 
-#clock, #backlight, #custom-cava,#temperature, #cpu, #pulseaudio, #network, #battery , #tray, #memory ,#custom-playerctl{
-  border-radius: 10px;
-  background-color: #191a24;
-  color: #c0caf5;
-  margin-top: 15px;
-  padding-left: 9px;
-  padding-right: 9px;
-  margin-right: 15px;
+#submap,
+#workspaces button.urgent {
+  background: rgba(227, 81, 73, 1);
+  color: black;
 }
 
-@keyframes blink {
-  to {
-    background-color: #ffffff;
-    color: black;
-  }
+#pulseaudio-slider {
+  padding: 0px;
+  margin: 0px;
+  margin-left: 8px;
 }
 
 #pulseaudio-slider slider {
@@ -158,10 +155,5 @@ tooltip {
 
 tooltip label {
   color: white;
-  animation-name: blink;
-  animation-duration: 0.5s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
 

@@ -1,6 +1,3 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */
-
-/* My Mostly Used waybar config incase you wonder :) */
 {
       // show only hover
       "start_hidden": false,
@@ -167,4 +164,3 @@
             "on-click": "sh /home/knightfall/.config/hypr/scripts/exec_wofi application_launcher"
       }
 }
-
