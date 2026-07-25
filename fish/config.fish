@@ -42,9 +42,10 @@ set -g EDITOR "nvim"
 set -g VISUAL "nvim"
 set -g SHELL "/usr/bin/fish"
 
-#gtk
-set -g PKG_CONFIG_PATH "/opt/gtk/lib64/pkgconfig:/opt/gtk/lib/pkgconfig:$PKG_CONFIG_PATH"
-set -g LD_LIBRARY_PATH "/opt/gtk/lib64:/opt/gtk/lib:$LD_LIBRARY_PATH"
+set -g PKG_CONFIG_PATH /usr/local/lib64/pkgconfig 
+set -gx PKG_CONFIG_PATH /opt/gtk/lib64/pkgconfig /opt/gtk/lib/pkgconfig $PKG_CONFIG_PATH
+
+set -gx LD_LIBRARY_PATH /opt/gtk/lib64 /opt/gtk/lib $LD_LIBRARY_PATH
 
 # ========= PATHS ==========
 
@@ -57,6 +58,7 @@ fish_add_path $JAVA_HOME/bin:$PATH;
 fish_add_path /opt/idea-IU-252.26199.169/bin:$PATH;
 fish_add_path $HOME/.local/bin/my-scripts:$PATH;
 fish_add_path $HOME/.cargo/bin/
+fish_add_path /etc/ookla-speedtest
 
 # ========= ALIASES ==========
 
