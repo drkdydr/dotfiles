@@ -45,7 +45,7 @@ set -g SHELL "/usr/bin/fish"
 set -g PKG_CONFIG_PATH /usr/local/lib64/pkgconfig 
 set -gx PKG_CONFIG_PATH /opt/gtk/lib64/pkgconfig /opt/gtk/lib/pkgconfig $PKG_CONFIG_PATH
 
-set -gx LD_LIBRARY_PATH /opt/gtk/lib64 /opt/gtk/lib $LD_LIBRARY_PATH
+# set -gx LD_LIBRARY_PATH $LD_LIBRARY_PATH
 
 # ========= PATHS ==========
 

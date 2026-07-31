@@ -23,10 +23,17 @@ hl.config({
 })
 
 hl.monitor({
-	output = "",
+	output = "HDMI-A-1",
 	mode = "preferred",
+	position = "0x0",
+	scale = "1.05",
+})
+
+hl.monitor({
+	output = "eDP-1",
+      mode = "preferred",
 	position = "auto",
-	scale = "1.2",
+	scale = "1.1",
 })
 
 ---------------------
@@ -48,6 +55,9 @@ local menu = "hyprlauncher"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
+
+      hl.dispatch(hl.dsp.focus({ workspace = "1"})) -- hyprctl dispatch workspace 1
+
 	--   hl.exec_cmd(terminal)
 	--   hl.exec_cmd("nm-applet")
 	hl.exec_cmd("waybar & hyprpaper")
@@ -364,6 +374,7 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 -- Personal Shortcuts
 hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"), { locked = true })
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --freeze --clipboard-only"), {locked = true})
+
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
@@ -414,4 +425,9 @@ hl.window_rule({
 	float = true,
 })
 
-
+-- set default monitor as big one --
+hl.workspace_rule({
+      workspace = "1",
+      monitor   = "HDMI-A-1",
+      default   = true,
+})
