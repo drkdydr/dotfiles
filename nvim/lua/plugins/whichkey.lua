@@ -235,7 +235,7 @@ return {
 			},
 
                   -- SURROUND (nvim-surround.nvim)
-			{ "<leader>S", group = "Surround", icon = "󰅩", mode = { "n", "v" }},
+			{ "<leader>S", group = "Surround", mode = { "n", "v" }},
                   -- shortcuts defined in nvim-surrond.lua
 
 			{ "<leader>s", group = "Search", nowait = true, remap = false },
