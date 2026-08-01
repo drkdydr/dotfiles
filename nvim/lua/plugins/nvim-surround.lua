@@ -17,7 +17,10 @@ return {
                 desc = "Replace surrounding (normal mode)",
             })
             vim.keymap.set("n", "<leader>Sl", "<Plug>(nvim-surround-normal-cur)", {
-                desc = "Surround line",
+                desc = "Surround line inside same line",
+            })
+            vim.keymap.set("n", "<leader>SL", "<Plug>(nvim-surround-normal-cur-line)", {
+                desc = "Surround line from upper & lower lines",
             })
 
             -- Visual Mode Shortcuts
