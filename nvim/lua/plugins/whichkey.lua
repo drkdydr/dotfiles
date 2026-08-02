@@ -226,13 +226,18 @@ return {
 			{ "<leader>M", "<cmd>Mason<cr>", desc = "Mason", nowait = true, remap = false },
 			{ "<leader>p", "<cmd>Lazy<CR>", desc = "Plugin Manager", nowait = true, remap = false },
 			{ "<leader>q", "<cmd>wqall!<CR>", desc = "Quit", nowait = true, remap = false },
+
+
+                  -- REFORMAT GROUP --
+			{ "<leader>r", group = "Reformat", nowait = true, remap = false },
 			{
-				"<leader>r",
+				"<leader>rc",
 				"<cmd>lua vim.lsp.buf.format{async=true}<cr>",
 				desc = "Reformat Code",
 				nowait = true,
 				remap = false,
 			},
+                  { "<leader>rp", ":%!autopep8 --aggressive --aggressive -<CR>", desc = "Style format with autopep8 (for python)" },
 
                   -- SURROUND (nvim-surround.nvim)
 			{ "<leader>S", group = "Surround", mode = { "n", "v" }},

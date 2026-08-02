@@ -15,5 +15,16 @@ return {
 		vim.lsp.config("*", {
 			capabilities = capabilities,
 		})
+
+            -- disable python code style warnings --
+            vim.lsp.config("pylsp", {
+                  settings = {
+                        pylsp = {
+                              plugins = {
+                                    pycodestyle = { enabled = false },
+                              }
+                        }
+                  }
+            })
 	end,
 }
