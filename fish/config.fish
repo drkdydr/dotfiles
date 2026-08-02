@@ -9,30 +9,6 @@ set -g fish_prompt_pwd_dir_length 0
 # custom theme
 fish_config theme choose my
 
-# ========= FUNCTIONS ==========
-
-function bitwarden --description "copies bitwarden password to your clipboard"
-      set password_file_loc $HOME/Desktop/main/drk/bitwarden.txt
-      sudo cat $password_file_loc | wl-copy && echo -ne "password copied to your clipboard!\n"
-end
-
-function help --description "overrided version of help"
-      # no args
-    if test (count $argv) -eq 0
-        fish -c "help"
-        return
-    end
-
-    # my own programs list
-    set my_programs legame fuck tudu projects
-
-    if contains $argv[1] $my_programs
-        eval $argv[1] --help
-    else
-        fish -c "help $argv"
-    end
-end
-
 # ========= VARIABLES ==========
 
 set -g JAVA_HOME "/usr/bin/jvm/jdk-21.0.2"
@@ -69,8 +45,52 @@ abbr fih "fish"
 alias whereami "pwd"
 alias close "exit"
 alias fixkbspeed "xset r rate 200 40" # solves long press detection issue
+alias python "python3"
 abbr h "help"
 abbr ali "alias"
+
+# ========= FUNCTIONS ==========
+
+function mkcwd -d "creates directory and sets cwd"
+      command mkdir $argv
+      if test $status = 0
+            switch $argv[(count $argv)]
+                  case '-*'
+
+                  case '*'
+                        cd $argv[(count $argv)]
+                        return
+            end
+      end
+end
+
+function rmcwd -d "deletes cwd recursively"
+      set cwd (pwd)
+      cd ..
+      rm -r $cwd
+end
+
+function bitwarden --description "copies bitwarden password to your clipboard"
+      set password_file_loc $HOME/Desktop/main/drk/bitwarden.txt
+      sudo cat $password_file_loc | wl-copy && echo -ne "password copied to your clipboard!\n"
+end
+
+function help --description "overrided version of help"
+      # no args
+    if test (count $argv) -eq 0
+        fish -c "help"
+        return
+    end
+
+    # my own programs list
+    set my_programs legame fuck tudu projects
+
+    if contains $argv[1] $my_programs
+        eval $argv[1] --help
+    else
+        fish -c "help $argv"
+    end
+end
 
 # ========= LOOK AND FEEL ==========
 
