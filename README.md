@@ -2,11 +2,13 @@
 
 - **bin :** utilities and programs that I wrote and am currently using
 
-- **hypr :** configuration files of Hyprland Desktop Environment 
+- **hyprland :** parent folder that holds configs that are associated with hyprland 
 
-- **kitty :** configuration files of Hyprland's terminal kitty
+    ○ **hypr :** configuration files of Hyprland Desktop Environment 
 
-- **picom :** program that makes kitty's background transparent (I guess)
+    ○ **kitty :** configuration files of Hyprland's terminal kitty
+
+    ○ **picom :** program that makes kitty's background transparent (I guess)
 
 - **nvim :** my ultimate Neovim configuration
 

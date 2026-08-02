@@ -60,25 +60,33 @@ then
     exit 1
 fi
 
+#create destination folders if not exist
+mkdir -p $DOTFILES_FOLDER/hyprland/hypr
+mkdir $DOTFILES_FOLDER/hyprland/kitty 
+mkdir $DOTFILES_FOLDER/hyprland/picom 
+mkdir $DOTFILES_FOLDER/hyprland/waybar
+mkdir $DOTFILES_FOLDER/nvim 
+mkdir $DOTFILES_FOLDER/fish 
+mkdir $DOTFILES_FOLDER/bin 
+
 # backup dotfiles
 
 # nvim dotfiles
-rsync -avz --delete $HOME/.config/nvim $DOTFILES_FOLDER
+rsync -avz --delete $HOME/.config/nvim/. $DOTFILES_FOLDER/nvim
 
 #hyprland dotfiles
-rsync -avz --delete $HOME/.config/hypr $DOTFILES_FOLDER
-rsync -avz --delete $HOME/.config/kitty $DOTFILES_FOLDER
-rsync -avz --delete $HOME/.config/picom $DOTFILES_FOLDER/hyprland   #for kitty transparency
-rsync -avz --delete $HOME/.config/waybar $DOTFILES_FOLDER/hyprland
+rsync -avz --delete $HOME/.config/hypr/. $DOTFILES_FOLDER/hyprland/hypr/
+rsync -avz --delete $HOME/.config/kitty/. $DOTFILES_FOLDER/hyprland/kitty/
+rsync -avz --delete $HOME/.config/picom/. $DOTFILES_FOLDER/hyprland/picom/   #for kitty transparency
+rsync -avz --delete $HOME/.config/waybar/. $DOTFILES_FOLDER/hyprland/waybar/
  
 
 # shell dotfiles
 cp $HOME/.bashrc $DOTFILES_FOLDER
 cp $HOME/.zshrc $DOTFILES_FOLDER # they can stay as cp
-rsync -avz --delete $HOME/.config/fish $DOTFILES_FOLDER
+rsync -avz --delete $HOME/.config/fish/. $DOTFILES_FOLDER/fish/
  
 # backup bin folder
-cp $HOME/bin/my/* $DOTFILES_FOLDER/bin/
 rsync -avz --delete $HOME/bin/my/. $DOTFILES_FOLDER/bin/
 
 # return # remove before push
