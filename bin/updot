@@ -1,6 +1,9 @@
+# this is a short script for syncing my config files to the folder that my dotfiles repository is attached to
+# if you are not me or using my computer this will not serve you
+
 #!/bin/bash
 
-DOTFILES_FOLDER="$HOME/projects/dotfiles/"
+DOTFILES_FOLDER="$HOME/projects/dotfiles"
 DEFAULT_MSG="dotfile updated."
 
 print_help(){
@@ -10,12 +13,15 @@ pushes dotfile changes to github
 options:
       -m, --message <commit_message> : specifies custom commit message
       --no-git                       : skips git operations
+      --no-push                      : does not push changes
 
 EOF
 }
 
 message=$DEFAULT_MSG
+
 no_git=0
+no_push=0
 
 while [[ $# -gt 0 ]]; do
       case $1 in
@@ -36,6 +42,10 @@ while [[ $# -gt 0 ]]; do
                   no_git=1
                   shift 1
                   ;;
+            --no-push)
+                  no_push=1
+                  shift 1
+                  ;;
             *)
                   echo "updot : unknown argument"
                   exit 0
@@ -43,25 +53,35 @@ while [[ $# -gt 0 ]]; do
       esac
 done
 
+#check if rsync is installed
+if ! command -v rsync >/dev/null 2>&1
+then
+    echo "updot: rsync could not be found. try "sudo dnf install -y rsync"."
+    exit 1
+fi
+
 # backup dotfiles
 
 # nvim dotfiles
-cp -r $HOME/.config/nvim $DOTFILES_FOLDER
+rsync -avz --delete $HOME/.config/nvim $DOTFILES_FOLDER
 
 #hyprland dotfiles
-cp -r $HOME/.config/hypr $DOTFILES_FOLDER/hyprland
-cp -r $HOME/.config/kitty $DOTFILES_FOLDER/hyprland
-cp -r $HOME/.config/picom $DOTFILES_FOLDER/hyprland   #for kitty transparency
-cp -r $HOME/.config/waybar $DOTFILES_FOLDER/hyprland
-
+rsync -avz --delete $HOME/.config/hypr $DOTFILES_FOLDER
+rsync -avz --delete $HOME/.config/kitty $DOTFILES_FOLDER
+rsync -avz --delete $HOME/.config/picom $DOTFILES_FOLDER/hyprland   #for kitty transparency
+rsync -avz --delete $HOME/.config/waybar $DOTFILES_FOLDER/hyprland
+ 
 
 # shell dotfiles
 cp $HOME/.bashrc $DOTFILES_FOLDER
-cp $HOME/.zshrc $DOTFILES_FOLDER
-cp -r $HOME/.config/fish $DOTFILES_FOLDER  
-
+cp $HOME/.zshrc $DOTFILES_FOLDER # they can stay as cp
+rsync -avz --delete $HOME/.config/fish $DOTFILES_FOLDER
+ 
 # backup bin folder
 cp $HOME/bin/my/* $DOTFILES_FOLDER/bin/
+rsync -avz --delete $HOME/bin/my/. $DOTFILES_FOLDER/bin/
+
+# return # remove before push
 
 # commit & push changes
 
@@ -69,5 +89,7 @@ if [[ $no_git -eq 0 ]]; then
       cd $DOTFILES_FOLDER
       git add .
       git commit -m "$message"
-      git push
+      if [[ $no_push -eq 0 ]]; then
+            git push
+      fi
 fi
