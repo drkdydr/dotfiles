@@ -26,13 +26,13 @@ hl.monitor({
 	output = "HDMI-A-1",
 	mode = "preferred",
 	position = "0x0",
-	scale = "1.05",
+	scale = "1",
 })
 
 hl.monitor({
 	output = "eDP-1",
       mode = "preferred",
-	position = "auto",
+	position = "2560x750", -- eğer scale değeri 1'den farklıysa pixel değerlerini de ona göre ayarlaman gerekir (bundan dolayı çalışmamıştı)
 	scale = "1.1",
 })
 
