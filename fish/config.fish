@@ -28,6 +28,7 @@ set -gx PKG_CONFIG_PATH /opt/gtk/lib64/pkgconfig /opt/gtk/lib/pkgconfig $PKG_CON
 # maybe later you can write a script for automatically get paths from a file and add (file named .paths)
 fish_add_path $HOME/bin
 fish_add_path $HOME/bin/my
+fish_add_path $HOME/bin/my/scripts
 fish_add_path $HOME/devel/flutter/bin
 fish_add_path /etc/oha-script # oha
 fish_add_path $JAVA_HOME/bin:$PATH; 

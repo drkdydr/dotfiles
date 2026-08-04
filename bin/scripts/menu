@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# you need to clone my sysscripts repo to work this script (or just repath)
+python3 $HOME/projects/syscripts/menu.py $@
