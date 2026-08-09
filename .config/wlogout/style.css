@@ -1,0 +1,96 @@
+/* ==========================================================================
+   wlogout — style.css
+   Idle   : solid #080808
+   Hover  : her butonun kendi rengiyle TAM dolum
+   Grid   : 3 sutun x 2 satir (wlogout varsayilani, -b flag'ine gerek yok)
+   Calistir: wlogout --protocol layer-shell
+   ========================================================================== */
+
+@define-color base  #080808;
+@define-color light #e4e4e4;
+@define-color mid   #bdbdbd;
+
+/* ---- Genel sifirlama: Adwaita'nin varsayilan buton "bevel" / golge
+        efektini temizle -- ustte olusan beyaz cizginin sebebi buydu ---- */
+* {
+    box-shadow: none;
+    text-shadow: none;
+    outline: none;
+    background-image: none;
+}
+
+/* ---- Tam ekran arka plan katmani ---- */
+window {
+    font-family: "JetBrainsMono Nerd Font", "Inter", sans-serif;
+    font-size: 15px;
+    background-color: alpha(@base, 0);
+}
+
+/* ---- Temel buton gorunumu: cercevesiz, duz koyu zemin ---- */
+button {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24%;
+    border: 0px solid transparent;   /* "border:none" yerine bu -- bazi GTK
+                                         surumlerinde clip/rounded-corner
+                                         artifaktlarini daha guvenilir onler */
+    /* border-radius: 16px; */
+    border-radius: 0px;
+    box-shadow: none;
+    min-width: 130px;
+    min-height: 130px;
+    /* margin: 16px; */
+    font-weight: 900;
+    letter-spacing: 0.4px;
+
+    background-color: alpha(@base, 0.88);   /* idle: solid #080808 */
+    color: alpha(@mid, 0);                             /* idle yazi: #bdbdbd */
+
+    transition: 100ms ease-in-out;
+}
+
+/*
+ * focus
+ */
+
+#shutdown:hover,  #shutdown:focus,  #shutdown:active {
+    background-color: #F25757;
+    color: white;
+}
+#reboot:hover,    #reboot:focus,    #reboot:active {
+    background-color: #8CC85F;
+    color: white;
+}
+#lock:hover,      #lock:focus,      #lock:active {
+    background-color: #E0D586;
+    color: white;
+}
+#suspend:hover,   #suspend:focus,   #suspend:active {
+    background-color: #CF87E8;
+    color: white;
+}
+#hibernate:hover, #hibernate:focus, #hibernate:active {
+    background-color: #82A6D6;
+    color: white;
+}
+
+/* 
+ * background color and normal text color are the same so if it stood same text would be invisible
+ */
+#logout:hover,    #logout:focus,    #logout:active {
+    background-color: #E4E4E4;
+    color: #323437;
+}
+
+
+#shutdown  { background-image: image(url("./icons/shutdown.png")); }
+
+#reboot    { background-image: image(url("./icons/reboot.png")); }
+
+#lock      { background-image: image(url("./icons/lock.png")); }
+
+#suspend   { background-image: image(url("./icons/suspend.png")); }
+
+#hibernate { background-image: image(url("./icons/hibernate.png")); }
+
+#logout    { background-image: image(url("./icons/logout.png")); }

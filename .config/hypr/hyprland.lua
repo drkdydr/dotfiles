@@ -2,8 +2,7 @@
 -- Refer to the wiki for more information.
 -- https://wiki.hypr.land/Configuring/Start/
 
--- Please note not all available settings / options are set here.
--- For a full list, see the wiki
+-- Please note not all available settings / options are set here. For a full list, see the wiki
 
 -- You can (and should!!) split this configuration into multiple files
 -- Create your files separately and then require them like this:
@@ -378,6 +377,7 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 -- Personal Shortcuts
 hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"), { locked = true })
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --freeze --clipboard-only"), {locked = true})
+hl.bind("SUPER + ESCAPE", hl.dsp.exec_cmd("wlogout"), {locked = false}) -- locked = true ekran kilitliyken bu shortcut'ın çalışmasına izin ver demek
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
