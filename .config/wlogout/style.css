@@ -1,17 +1,8 @@
-/* ==========================================================================
-   wlogout — style.css
-   Idle   : solid #080808
-   Hover  : her butonun kendi rengiyle TAM dolum
-   Grid   : 3 sutun x 2 satir (wlogout varsayilani, -b flag'ine gerek yok)
-   Calistir: wlogout --protocol layer-shell
-   ========================================================================== */
 
 @define-color base  #080808;
 @define-color light #e4e4e4;
 @define-color mid   #bdbdbd;
 
-/* ---- Genel sifirlama: Adwaita'nin varsayilan buton "bevel" / golge
-        efektini temizle -- ustte olusan beyaz cizginin sebebi buydu ---- */
 * {
     box-shadow: none;
     text-shadow: none;
@@ -49,9 +40,7 @@ button {
     transition: 100ms ease-in-out;
 }
 
-/*
- * focus
- */
+/* FOCUS */
 
 #shutdown:hover,  #shutdown:focus,  #shutdown:active {
     background-color: #F25757;
@@ -83,6 +72,7 @@ button {
 }
 
 
+/* ICONS */
 #shutdown  { background-image: image(url("./icons/shutdown.png")); }
 
 #reboot    { background-image: image(url("./icons/reboot.png")); }
