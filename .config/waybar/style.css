@@ -27,13 +27,12 @@ window#waybar {
 }
 
 #workspaces button {
-      border-radius: 15px;
+      border-radius: 16px;
       background-color: rgba(8, 8, 8, 0.4);
       color: #999a9e;
-      padding-left: 12px;
-      padding-right: 12px;
+      padding: 4px 10px;
       transition: all 0.1s linear;
-      margin: 0px 3px;
+      margin: 2px 5px;
 }
 
 #workspaces button.active {
@@ -44,47 +43,71 @@ window#waybar {
       transition: all 0.1s linear;
 }
 
-#quick-net {
-      background-color: rgba(8, 8, 8, 0.6);
+/* #quick-net { */
+/*       background-color: rgba(8, 8, 8, 0.6); */
       /* Kullandığınız tema rengi */
-      border-radius: 8px;
-      padding: 5px 10px;
-      margin: 12px 12px 0px 0px;
-}
+/*       border-radius: 8px; */
+/*       padding: 5px 10px; */
+/*       margin: 12px 12px 0px 0px; */
+/* } */
 
 /* İkonun stili */
-#network.icon {
-      padding: 0px 4px;
-}
+/* #network.icon { */
+/*       padding: 0px 4px; */
+/* } */
 
 /* Hover yapılmadığı anlarda metnin gizlenirkenki yumuşak geçişi */
-#network.text {
-      padding: 0px 2px;
-      color: #d9dadd;
-      transition: all 0.3s ease-in-out;
-}
+/* #network.text { */
+/*       padding: 0px 2px; */
+/*       color: #d9dadd; */
+/*       transition: all 0.3s ease-in-out; */
+/* } */
 
 /* Bağlantı koptuğundaki kırmızı "no network" yazısının rengi */
-#network\.text.disconnected {
-      color: #fc8983;
-}
+/* #network\.text.disconnected { */
+/*       color: #fc8983; */
+/* } */
 
 /* GENERAL APPLICATION DESIGN */
 
+/* long info boxes */
 #submap,
 #battery,
-#bluetooth,
 #cpu,
 #memory,
 #volume,
-#clock,
-#quick-net
+#clock
+/* #quick-net, */
 {
-      border-radius: 10px;
-      padding: 5px 8px;
+      border-radius: 11px;
+      padding: 6px 10px;
       background-color: rgba(8, 8, 8, 0.6);
       color: #d9dadd;
 }
+
+#toolkit
+{
+      background-color: rgba(8, 8, 8, 0.6);
+      padding: 2px 2px;
+      border-radius: 18px;
+}
+
+/* only icon boxes (tookit) */
+#bluetooth,
+#network,
+#custom-updates
+{
+      border-radius: 15px;
+      margin: 2px 5px;
+      padding: 1px 10px;
+      background-color: rgba(8, 8, 8, 0.5);
+      color: #d9dadd;
+}
+
+#custom-updates.up-to-date   { color: #999a9e; }
+#custom-updates.has-updates  { color: #d9dadd; }
+#custom-updates.reboot-needed{ color: #E0D586; }
+#custom-updates.error        { color: #F25757; }
 
 #custom-power {
       border-radius: 18px;
@@ -106,8 +129,9 @@ window#waybar {
 #memory:hover,
 #volume:hover,
 #clock:hover,
-#quick-net:hover,
-#custom-power:hover
+/* #quick-net:hover, */
+#network:hover
+/* #custom-power:hover */
 {
       background-color: rgba(8, 8, 8, 0.7);
       transition: background-color 0.2s linear;
@@ -130,12 +154,12 @@ window#waybar {
 
 #submap,
 #battery,
-#bluetooth,
 #cpu,
 #memory,
 #volume, 
-#quick-net,
-#custom-power
+/* #quick-net, */
+#custom-power,
+#toolkit
 {
       margin: 12px 12px 0px 0px;
 }
