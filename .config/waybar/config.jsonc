@@ -7,10 +7,12 @@
       "layer": "top",
       "modules-left": [
             "clock",
-            "hyprland/workspaces",
-            "hyprland/window"
+            "group/media"
+            // "hyprland/window"
       ],
-      "modules-center": [],
+      "modules-center": [
+            "hyprland/workspaces"
+      ],
       "modules-right": [
             "hyprland/submap",
             // "group/quick-net", // old "network" 
@@ -178,16 +180,20 @@
             "max-length": 40,
             "separate-outputs": true
       },
+
+      // === CUSTOM MODULES ===
       "custom/arch": {
             "format": " ",
             "on-click": "sh /home/knightfall/.config/hypr/scripts/exec_wofi application_launcher"
       },
+
       "custom/power": {
             "format": "<span color='#fc8983' >⏻</span>",
             "on-click": "exec wlogout",
             "tooltip": true,
             "tooltip-format": "Logout Menu"
       },
+
       "custom/updates": {
             "exec": "bash ~/.config/waybar/scripts/updates.sh",
             "return-type": "json",
@@ -196,13 +202,22 @@
             "on-click": "kitty -e sudo dnf upgrade",
             "tooltip": true
       },
+
+      "custom/toolkit-seperator": {
+            "format": "|"
+      },
+
       "group/toolkit": {
             "orientation": "horizontal",
             "modules": [
                   "memory",
+                  "custom/toolkit-seperator",
                   "cpu",
+                  "custom/toolkit-seperator",
                   "bluetooth",
+                  "custom/toolkit-seperator",
                   "custom/updates",
+                  "custom/toolkit-seperator",
                   "network"
             ]
       },
@@ -227,6 +242,32 @@
             "escape": true
       },
 
-      "custom/separator": { "format": "|" }
+      "custom/separator": { "format": "|" },
+
+      "custom/media-now-playing": {
+            "exec": "~/.config/waybar/scripts/media/media-now-playing.sh",
+            "escape": true,
+            "tooltip": false
+      },
+
+      "custom/media-animation": {
+            "exec": "~/.config/waybar/scripts/media/media-animation.sh",
+            "tooltip": false,
+            "on-click": "playerctl play-pause",
+            "on-click-middle": "playerctl previous",
+            "on-click-right": "playerctl next"
+      },
+
+      "group/media": {
+            "orientation": "horizontal",
+            "drawer": {
+                  "transition-duration": 500, // Genişleme hızı (milisaniye)
+                  "transition-left-to-right": true // Sola doğru açılması için (sağda duruyorsa)
+            },
+            "modules": [
+              "custom/media-animation",
+              "custom/media-now-playing"
+            ]
+      }
 
 }

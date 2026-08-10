@@ -5,6 +5,8 @@
 @define-color dark-6 rgba(82, 82, 91, 1);
 @define-color dark-5 rgba(113, 113, 122, 1);
 
+/* TODO: daha düzenli hale getir / tutarsızlıkları gider. */
+
 * {
       border: none;
       font-family: 'JetBrainsMono Nerd Font', 'Symbols Only';
@@ -21,53 +23,51 @@ window#waybar {
       margin: 0px;
 }
 
+/* === WORKSPACES === */
 
 #workspaces {
       background-color: transparent;
 }
 
 #workspaces button {
-      min-width: 17px;
-      border-radius: 16px;
+      min-width: 16px;
+      border-radius: 20px;
       background-color: rgba(8, 8, 8, 0.3);
       color: #999a9e;
-      padding: 4px 10px;
+      font-weight: 300;
+      font-size: 16px;
+      padding: 0px 10px;
       transition: all 0.1s linear;
-      margin: 1px 5px;
+      margin: 3px 5px;
+}
+
+/* there is no other way to specify*/
+#workspaces button label {
+      font-size: 13px;
+}
+
+#workspaces button:hover {
+      color: #080808;
+
 }
 
 #workspaces button.active {
       color: #d9dadd;
-      background-color: rgba(8, 8, 8, 0.7);
+      background-color: rgba(8, 8, 8, 0.8);
       font-weight: 700;
-      padding: 3px 25px;
+      padding: 0px 30px;
       transition: all 0.1s linear;
+      margin: 3px 5px;
 }
 
-/* #quick-net { */
-/*       background-color: rgba(8, 8, 8, 0.6); */
-      /* Kullandığınız tema rengi */
-/*       border-radius: 8px; */
-/*       padding: 5px 10px; */
-/*       margin: 12px 12px 0px 0px; */
-/* } */
+#workspaces button.active label {
+      font-size: 16px;
+}
 
-/* İkonun stili */
-/* #network.icon { */
-/*       padding: 0px 4px; */
-/* } */
+#workspaces button.active:hover {
+      color: #080808;
 
-/* Hover yapılmadığı anlarda metnin gizlenirkenki yumuşak geçişi */
-/* #network.text { */
-/*       padding: 0px 2px; */
-/*       color: #d9dadd; */
-/*       transition: all 0.3s ease-in-out; */
-/* } */
-
-/* Bağlantı koptuğundaki kırmızı "no network" yazısının rengi */
-/* #network\.text.disconnected { */
-/*       color: #fc8983; */
-/* } */
+}
 
 /* GENERAL APPLICATION DESIGN */
 
@@ -76,43 +76,95 @@ window#waybar {
 #battery,
 #volume,
 #clock,
-#custom-notification
+#custom-notification,
+#media
 /* #quick-net, */
 {
-      border-radius: 11px;
-      min-width: 20px;
-      padding: 6px 10px;
-      background-color: rgba(8, 8, 8, 0.6);
+      border-radius: 19px;
+      padding: 6px 14px;
+      background-color: rgba(8, 8, 8, 0.75);
       color: #d9dadd;
 }
 
+#media {
+      min-width: 90px;
+}
+
+/* === TOOLKIT === */
+
 #toolkit
 {
-      background-color: rgba(8, 8, 8, 0.5);
-      padding: 2px 2px;
+      background-color: rgba(8, 8, 8, 0.75);
+      padding: 0px;
       border-radius: 18px;
 }
 
-/* only icon boxes (toolkit) */
+
+/* toolkit buttons */
+
+/* button properties */
 #bluetooth,
 #network,
 #custom-updates,
 #cpu,
 #memory
 {
-      min-width: 20px;
-      min-height: 20px;
-      border-radius: 15px;
-      margin: 2px 4px;
+      min-width: 25px;
+      margin: 0px;
       padding: 1px 10px;
-      background-color: rgba(8, 8, 8, 0.4);
+      background-color: transparent;
       color: #d9dadd;
 }
+
+#custom-toolkit-seperator
+{
+      color: #d9dadd;
+      margin: 0px;
+      padding: 0px;
+}
+
 
 #custom-updates.up-to-date   { color: #999a9e; }
 #custom-updates.has-updates  { color: #d9dadd; }
 #custom-updates.reboot-needed{ color: #E0D586; }
 #custom-updates.error        { color: #F25757; }
+
+/* button exceptions */
+
+/* leftmost button */
+#memory {
+      padding-left: 20px;
+      border-top-left-radius: 18px;
+      border-bottom-left-radius: 18px;
+}
+
+/* rightmost button */
+#network {
+      padding-right: 20px;
+      border-top-right-radius: 18px;
+      border-bottom-right-radius: 18px;
+}
+
+/* === MEDIA === */
+
+#custom-media-now-playing,
+#custom-media-animation
+{
+      margin: 2px 4px;
+}
+
+#custom-media-now-playing {
+      margin-left: 15px;
+}
+
+#custom-media-animation#button,
+#custom-media-animation#timestamp,
+#custom-media-animation#animation
+{
+      color: #d9dadd;
+}
+
+
 
 #custom-power {
       border-radius: 18px;
@@ -137,23 +189,28 @@ window#waybar {
 /* #quick-net:hover, */
 #network:hover,
 /* #custom-power:hover */
+#media:hover,
 #custom-notification:hover
+#custom-updates.up-to-date:hover,
+#custom-updates.has-updates:hover,
+#custom-updates.reboot-needed:hover,
+#custom-updates.error:hover
 {
-      background-color: rgba(8, 8, 8, 0.7);
+      background-color: rgba(8, 8, 8, 0.9);
       transition: background-color 0.2s linear;
 }
 
 /* LEFT SIDE APPLICATION ALLOCATORS */
 
 #clock {
-      margin: 12px 12px 0px 12px;
+      margin: 10px 12px 0px 10px;
       /* zaten hyprland'den gelen waybar ile pencere arası bir boşluk var*/
 }
 
 #workspaces,
 #window {
       padding: 0px;
-      margin: 12px 10px 0px 10px;
+      margin: 10px 10px 0px 10px;
 }
 
 /* RIGHT SIDE APPLICATION ALLOCATORS */
@@ -164,9 +221,15 @@ window#waybar {
 /* #quick-net, */
 #custom-power,
 #custom-notification,
+#media
+{
+      margin: 10px 10px 0px 0px;
+}
+
 #toolkit
 {
-      margin: 12px 12px 0px 0px;
+      margin: 10px 12px 0px 0px;
+      
 }
 
 #pulseaudio.percent {
