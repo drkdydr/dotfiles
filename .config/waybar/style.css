@@ -27,12 +27,13 @@ window#waybar {
 }
 
 #workspaces button {
+      min-width: 17px;
       border-radius: 16px;
-      background-color: rgba(8, 8, 8, 0.4);
+      background-color: rgba(8, 8, 8, 0.3);
       color: #999a9e;
       padding: 4px 10px;
       transition: all 0.1s linear;
-      margin: 2px 5px;
+      margin: 1px 5px;
 }
 
 #workspaces button.active {
@@ -73,13 +74,13 @@ window#waybar {
 /* long info boxes */
 #submap,
 #battery,
-#cpu,
-#memory,
 #volume,
-#clock
+#clock,
+#custom-notification
 /* #quick-net, */
 {
       border-radius: 11px;
+      min-width: 20px;
       padding: 6px 10px;
       background-color: rgba(8, 8, 8, 0.6);
       color: #d9dadd;
@@ -87,20 +88,24 @@ window#waybar {
 
 #toolkit
 {
-      background-color: rgba(8, 8, 8, 0.6);
+      background-color: rgba(8, 8, 8, 0.5);
       padding: 2px 2px;
       border-radius: 18px;
 }
 
-/* only icon boxes (tookit) */
+/* only icon boxes (toolkit) */
 #bluetooth,
 #network,
-#custom-updates
+#custom-updates,
+#cpu,
+#memory
 {
+      min-width: 20px;
+      min-height: 20px;
       border-radius: 15px;
-      margin: 2px 5px;
+      margin: 2px 4px;
       padding: 1px 10px;
-      background-color: rgba(8, 8, 8, 0.5);
+      background-color: rgba(8, 8, 8, 0.4);
       color: #d9dadd;
 }
 
@@ -130,8 +135,9 @@ window#waybar {
 #volume:hover,
 #clock:hover,
 /* #quick-net:hover, */
-#network:hover
+#network:hover,
 /* #custom-power:hover */
+#custom-notification:hover
 {
       background-color: rgba(8, 8, 8, 0.7);
       transition: background-color 0.2s linear;
@@ -154,11 +160,10 @@ window#waybar {
 
 #submap,
 #battery,
-#cpu,
-#memory,
 #volume, 
 /* #quick-net, */
 #custom-power,
+#custom-notification,
 #toolkit
 {
       margin: 12px 12px 0px 0px;

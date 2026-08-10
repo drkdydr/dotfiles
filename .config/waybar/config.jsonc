@@ -12,13 +12,12 @@
       ],
       "modules-center": [],
       "modules-right": [
-            "memory",
-            "cpu",
             "hyprland/submap",
             // "group/quick-net", // old "network" 
             "group/toolkit",
             "group/volume",
-            "battery"
+            "battery",
+            "custom/notification"
             // "custom/power"  (moved to SUPER + ESCAPE)
       ],
       "battery": {
@@ -53,7 +52,6 @@
                   ]
             }
       },
-
       "bluetooth": {
             "format": "",
             "format-disabled": "", // an empty format will hide the module
@@ -65,18 +63,17 @@
       },
       "cpu": {
             "interval": 10,
-            "format": " {}%",
+            "format": "",
+            "tooltip-format": "{}%",
             "max-length": 10,
             "on-click": "exec kitty --title=btop -e btop"
       },
       "memory": {
             "interval": 30,
-            "format": " {percentage}%",
-            "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
+            "format": " ",
+            "tooltip-format": "{used:0.1f}G/{total:0.1f}G used ({percentage}%)",
             "on-click": "exec kitty --title=htop -e htop"
       },
-
-
       "network": {
             "format-wifi": "<span color='#d9dadd'> </span>",
             "format-ethernet": "<span color='#d9dadd'> </span>",
@@ -87,9 +84,7 @@
             "tooltip-format-disconnected": "No Network",
             "on-click": "exec kitty --title=nmtui -e nmtui"
       },
-
       // HOVER NETWORK DRAWER (idea abondend)
-
       // // Grup Tanımı (Drawer)
       // "group/quick-net": {
       //       "orientation": "horizontal",
@@ -102,7 +97,6 @@
       //             "network#text" // Hover yapınca açılan yazı
       //       ]
       // },
-
       // "network#icon": {
       //       "format-wifi": "<span color='#d9dadd'> </span>",
       //       "format-ethernet": "<span color='#d9dadd'> </span>",
@@ -110,7 +104,6 @@
       //       "tooltip": false, // Tooltip'i kapatıyoruz çünkü zaten ismi açılacak
       //       "on-click": "exec kitty --title=nmtui -e nmtui"
       // },
-
       // "network#text": {
       //       "format-wifi": "{essid} ({signalStrength}%)",
       //       "format-ethernet": "{ipaddr}/{cidr}",
@@ -118,7 +111,6 @@
       //       "tooltip": false,
       //       "on-click": "exec kitty --title=nmtui -e nmtui"
       // },
-
       "clock": {
             "format": "<span color='#d9dadd'> </span>{:%H:%M}",
             //"format-alt": "<span foreground='#d9dadd'>🗓 </span><span>{:%a %d}</span>",
@@ -194,23 +186,47 @@
             "format": "<span color='#fc8983' >⏻</span>",
             "on-click": "exec wlogout",
             "tooltip": true,
-            "tooltip-format":"Logout Menu"
+            "tooltip-format": "Logout Menu"
       },
       "custom/updates": {
-          "exec": "bash ~/.config/waybar/scripts/updates.sh",
-          "return-type": "json",
-          "interval": 1800,
-          "format": "{}",
-          "on-click": "kitty -e sudo dnf upgrade",  
-          "tooltip": true
+            "exec": "bash ~/.config/waybar/scripts/updates.sh",
+            "return-type": "json",
+            "interval": 1800,
+            "format": "{}",
+            "on-click": "kitty -e sudo dnf upgrade",
+            "tooltip": true
       },
       "group/toolkit": {
             "orientation": "horizontal",
-            "modules" : [
+            "modules": [
+                  "memory",
+                  "cpu",
                   "bluetooth",
                   "custom/updates",
                   "network"
             ]
+      },
+      "custom/notification": {
+            "tooltip": false,
+            "format": "{icon}",
+            "format-icons": {
+                  "notification": "<span foreground='#f25757'><sup></sup></span>",
+                  "none": "",
+                  "dnd-notification": "<span foreground='#f25757'><sup></sup></span>",
+                  "dnd-none": "",
+                  "inhibited-notification": "<span foreground='#f25757'><sup></sup></span>",
+                  "inhibited-none": "",
+                  "dnd-inhibited-notification": "<span foreground='#f25757'><sup></sup></span>",
+                  "dnd-inhibited-none": ""
+            },
+            "return-type": "json",
+            "exec-if": "which swaync-client",
+            "exec": "swaync-client -swb",
+            "on-click": "swaync-client -t -sw",
+            "on-click-right": "swaync-client -d -sw",
+            "escape": true
+      },
 
-      }
+      "custom/separator": { "format": "|" }
+
 }
