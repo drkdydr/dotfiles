@@ -54,6 +54,14 @@
                   ]
             }
       },
+
+      // enables workspace travel with scroll
+      "hyprland/workspaces": {
+           "format": "{icon}",
+           "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e+1\"})' ",
+           "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e-1\"})' "
+      },
+
       "bluetooth": {
             "format": "",
             "format-disabled": "", // an empty format will hide the module
@@ -204,7 +212,8 @@
       },
 
       "custom/toolkit-seperator": {
-            "format": "|"
+            "format": "|",
+            "tooltip": false
       },
 
       "group/toolkit": {
@@ -242,7 +251,10 @@
             "escape": true
       },
 
-      "custom/separator": { "format": "|" },
+      "custom/separator": { 
+            "format": "|",
+            "tooltip": false
+      },
 
       "custom/media-now-playing": {
             "exec": "~/.config/waybar/scripts/media/media-now-playing.sh",

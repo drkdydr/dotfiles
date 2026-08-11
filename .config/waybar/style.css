@@ -124,7 +124,7 @@ window#waybar {
 }
 
 
-#custom-updates.up-to-date   { color: #999a9e; }
+#custom-updates.up-to-date   { color: #8cc85f; }
 #custom-updates.has-updates  { color: #d9dadd; }
 #custom-updates.reboot-needed{ color: #E0D586; }
 #custom-updates.error        { color: #F25757; }
@@ -154,7 +154,7 @@ window#waybar {
 }
 
 #custom-media-now-playing {
-      margin-left: 15px;
+      margin-left: 10px;
 }
 
 #custom-media-animation#button,
