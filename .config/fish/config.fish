@@ -36,6 +36,7 @@ fish_add_path /opt/idea-IU-252.26199.169/bin:$PATH;
 fish_add_path $HOME/.local/bin/my-scripts:$PATH;
 fish_add_path $HOME/.cargo/bin/
 fish_add_path /etc/ookla-speedtest
+fish_add_path $HOME/.spicetify
 
 # ========= ALIASES ==========
 
@@ -49,6 +50,7 @@ alias fixkbspeed "xset r rate 200 40" # solves long press detection issue
 alias python "python3"
 abbr h "help"
 abbr ali "alias"
+alias spotify "flatpak run com.spotify.Client"
 
 # ========= FUNCTIONS ==========
 
@@ -119,3 +121,5 @@ function fish_right_prompt
     date "+%H:%M:%S"
     set_color normal
 end
+
+fish_add_path /home/dydr/.spicetify

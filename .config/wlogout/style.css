@@ -21,7 +21,7 @@ window {
 button {
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 24%;
+    background-size: 19%;
     border: 0px solid transparent;   /* "border:none" yerine bu -- bazi GTK
                                          surumlerinde clip/rounded-corner
                                          artifaktlarini daha guvenilir onler */
