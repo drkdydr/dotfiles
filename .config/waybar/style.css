@@ -77,9 +77,11 @@ window#waybar {
 #volume,
 #clock,
 #custom-notification,
+#custom-power,
 #media
 /* #quick-net, */
 {
+      min-width: 20px;
       border-radius: 19px;
       padding: 6px 14px;
       background-color: rgba(8, 8, 8, 0.75);
@@ -116,7 +118,7 @@ window#waybar {
       color: #d9dadd;
 }
 
-#custom-toolkit-seperator
+#custom-toolkit-separator
 {
       color: #d9dadd;
       margin: 0px;
@@ -188,8 +190,9 @@ window#waybar {
 #clock:hover,
 /* #quick-net:hover, */
 #network:hover,
-/* #custom-power:hover */
 #media:hover,
+#custom-power:hover,
+#custom-notification:hover,
 #custom-notification:hover
 #custom-updates.up-to-date:hover,
 #custom-updates.has-updates:hover,
@@ -226,10 +229,17 @@ window#waybar {
       margin: 10px 10px 0px 0px;
 }
 
+#custom-separator {
+      color: #d9dadd;
+      margin: 9px 10px 0px 0px;
+      font-weight: 400;
+      font-size: 20px;
+}
+
+
 #toolkit
 {
       margin: 10px 12px 0px 0px;
-      
 }
 
 #pulseaudio.percent {

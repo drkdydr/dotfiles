@@ -19,8 +19,9 @@
             "group/toolkit",
             "group/volume",
             "battery",
-            "custom/notification"
-            // "custom/power"  (moved to SUPER + ESCAPE)
+            "custom/separator",
+            "custom/notification",
+            "custom/power"
       ],
       "battery": {
             "interval": 60,
@@ -196,7 +197,7 @@
       },
 
       "custom/power": {
-            "format": "<span color='#fc8983' >⏻</span>",
+            "format": "<span color='#d9dadd' ></span>",
             "on-click": "exec wlogout",
             "tooltip": true,
             "tooltip-format": "Logout Menu"
@@ -211,7 +212,7 @@
             "tooltip": true
       },
 
-      "custom/toolkit-seperator": {
+      "custom/toolkit-separator": {
             "format": "|",
             "tooltip": false
       },
@@ -220,13 +221,13 @@
             "orientation": "horizontal",
             "modules": [
                   "memory",
-                  "custom/toolkit-seperator",
+                  "custom/toolkit-separator",
                   "cpu",
-                  "custom/toolkit-seperator",
+                  "custom/toolkit-separator",
                   "bluetooth",
-                  "custom/toolkit-seperator",
+                  "custom/toolkit-separator",
                   "custom/updates",
-                  "custom/toolkit-seperator",
+                  "custom/toolkit-separator",
                   "network"
             ]
       },
