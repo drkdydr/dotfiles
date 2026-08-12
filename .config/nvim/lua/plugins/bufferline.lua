@@ -10,15 +10,16 @@ return {
           
             options = {
                 mode = "buffers",
-                separator_style = "slant", --white triangles exist because of transparency in colorscheme (for slant)
+                separator_style = {"",""}, --white triangles exist because of transparency in colorscheme (for slant)
                 
                 -- 1. NvimTree'nin üstünü boş bırak ve "File Explorer" yaz
                 offsets = {
                     {
                         filetype = "NvimTree",
-                        text = "File Explorer",
+                        text = "",
                         text_align = "center", -- Dilersen "left" yapabilirsin
-                        separator = true
+                        highlight = "filetype",
+                        separator = false
                     }
                 },
 
@@ -35,14 +36,28 @@ return {
 
                 indicator = {
                     style = 'icon',
-                    icon = '▎', 
+                    icon = '', 
                 },
+                show_tab_indicators = false,
                 modified_icon = '●', 
                 color_icons = true, 
                 always_show_bufferline = true,
             },
-
-            
+            highlights = {
+                fill = { bg = "NONE" },
+                background = { bg = "NONE" },
+                buffer_selected = { bg = "NONE", bold = true },
+                buffer_visible = { bg = "NONE" },
+                close_button = { bg = "NONE" },
+                close_button_selected = { bg = "NONE" },
+                close_button_visible = { bg = "NONE" },
+                indicator_selected = { bg = "NONE" },
+                indicator_visible = { bg = "NONE" },
+                separator = { bg = "NONE" },
+                separator_selected = { bg = "NONE" },
+                separator_visible = { bg = "NONE" },
+                offset_separator = { bg = "NONE" },
+              }
         })
     end
 }

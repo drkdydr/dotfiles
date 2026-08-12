@@ -19,8 +19,9 @@ return {
                 "typescript", "html", "css", "json", "tsx", "markdown", 
                 "markdown_inline", "gitignore"
             },
-            highlight = { enable = true },
+            highlight = { enable = false },
             autotag = { enable = true },
         })
+
     end
 }

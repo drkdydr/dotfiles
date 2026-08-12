@@ -2,7 +2,7 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- vim.cmd("colorscheme spacemanspiff")
+vim.cmd("colorscheme my")
 
 -- Load the options from the config/options.lua file
 require("config.options")
@@ -37,4 +37,15 @@ vim.filetype.add({
   extension = {
     arb = "json",
   },
+})
+
+-- prevent the horizontal line between code area and nvim-tree
+vim.opt.fillchars:append({
+  vert = " ",
+  horiz = " ",
+  horizup = " ",
+  horizdown = " ",
+  vertleft = " ",
+  vertright = " ",
+  verthoriz = " "
 })
