@@ -49,3 +49,18 @@ vim.opt.fillchars:append({
   vertright = " ",
   verthoriz = " "
 })
+
+-- Tabline arka planlarını transparan yap
+vim.api.nvim_set_hl(0, "TabLineFill", { bg = "NONE", ctermbg = "NONE" })
+vim.api.nvim_set_hl(0, "TabLine", { bg = "NONE", ctermbg = "NONE" })
+
+-- Eğer akinsho/bufferline.nvim kullanıyorsan, eklentinin kendi grubunu da temizlemen gerekebilir:
+vim.api.nvim_set_hl(0, "BufferLineFill", { bg = "NONE", ctermbg = "NONE" })
+vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = "NONE", ctermbg = "NONE"})
+
+-- -- Make warning message background transparent
+-- vim.api.nvim_set_hl(0, "WarningMsg", { fg = "#e2a15f", bg = "NONE", ctermbg = "NONE" })
+
+-- -- Hata mesajlarının (ErrorMsg) da arka planını silmek istersen (isteğe bağlı):
+-- -- Make warning message background transparent
+-- vim.api.nvim_set_hl(0, "ErrorMsg", { fg = "#fa7970", bg = "NONE", ctermbg = "NONE" })

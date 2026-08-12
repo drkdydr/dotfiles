@@ -5,21 +5,21 @@ if version > 580
     endif
 endif
 
-let g:colors_name='ghdark_custom'
+let g:colors_name='mine'
 
 let g:github_colors = {
   \ "base0"        : ["#080808", 232],
-  \ "base1"        : ["#323437", 236],
-  \ "base2"        : ["#323437", 236],
+  \ "base1"        : ["#171818", 236],
+  \ "base2"        : ["#272828", 236],
   \ "base3"        : ["#9e9e9e", 247],
-  \ "base4"        : ["#d9dadd", 253],
+  \ "base4"        : ["9e9e9e", 253],
   \ "base5"        : ["#d9dadd", 253],
-  \ "red"          : ["#fa7970", 210],
+  \ "red"          : ["#fa7970", 210323437],
   \ "orange"       : ["#e2a15f", 179],
   \ "yellow"       : ["#e0d586", 186],
   \ "green"        : ["#8cc85f", 113],
   \ "lightblue"    : ["#b2ceee", 153],
-  \ "blue"         : ["#82a6d6", 110],
+  \ "blue"         : ["#9ec2f2", 110],
   \ "purp"         : ["#cea5fb", 183],
   \ "none"         : ["NONE", "NONE"]
   \ }
@@ -92,11 +92,9 @@ if !exists("g:gh_color")
 endif
 
 if g:gh_color ==# "soft"
-    " Palette only has one "elevated" gray (#323437), so soft mode
-    " reuses it rather than inventing an off-palette shade.
     let g:github_colors["base0"] = g:github_colors["base1"]
     let g:github_colors["base1"] = g:github_colors["base2"]
-    let g:github_colors["base2"] = ["#323437", 236]
+    let g:github_colors["base2"] = ["#30353c", 238]
 endif
 
 "########################################
@@ -152,7 +150,6 @@ call s:ghhl("GhBlueBold", "blue", "none", "bold")
 call s:ghhl("GhBlueItalic", "blue", "none", "italic")
 call s:ghhl("GhOrange", "orange")
 call s:ghhl("GhOrangeBold", "orange", "none", "bold")
-call s:ghhl("GhYellow", "yellow")
 call s:ghhl("GhLightBlue", "lightblue")
 call s:ghhl("GhGreen", "green")
 call s:ghhl("GhUnder", "none", "none", "underline")
@@ -168,7 +165,7 @@ call s:ghhl("CursorLineNr", "lightblue", "base2")
 call s:ghhl("DiffAdd", "green", "base0")
 call s:ghhl("DiffChange", "orange", "base0")
 call s:ghhl("DiffDelete", "red", "base0")
-call s:ghhl("ErrorMsg", "red", "base1")
+call s:ghhl("ErrorMsg", "red", "none")
 call s:ghhl("Error", "none", "red")
 call s:ghhl("Folded", "blue", "base1")
 call s:ghhl("MatchParen", "none", "base3")
@@ -180,12 +177,9 @@ call s:ghhl("SignColumn", "none", "base0")
 call s:ghhl("StatusLine", "base5", "base2")
 call s:ghhl("StatusLineNC", "base3", "base1")
 call s:ghhl("Todo", "base4", "base0")
-call s:ghhl("VertSplit", "none", "none")
-call s:ghhl("WinSeparator", "none", "none")
-call s:ghhl("WinBar", "none", "none")
-call s:ghhl("WinBarNC", "base3", "none")
+call s:ghhl("VertSplit", "base1", "base1")
 call s:ghhl("Visual", "none", "base0", "reverse")
-call s:ghhl("WarningMsg", "yellow", "base1")
+call s:ghhl("WarningMsg", "orange", "none")
 
 "########################################
 " links
@@ -631,6 +625,39 @@ hi! link Whitespace Ignore
 hi! link yamlKey GhGreen
 hi! link yamlConstant GhRed
 
+" bufferline.nvim
+
+" bufferline.nvim — sekmelerin arkaplan kutularını tamamen kaldırıyoruz,
+" sadece dosya adı ve ikon görünsün diye guibg her yerde "none".
+" guifg'yi de "none" yaparsak terminalin/GUI'nin kendi (palet dışı)
+" varsayılan rengine düşer, o yüzden metin/ikon taşıyan gruplara
+" gerçek palet renkleri veriyoruz.
+
+call s:ghhl("BufferLineFill", "base3", "none")
+call s:ghhl("BufferLineBackground", "base3", "none")
+call s:ghhl("BufferLineBufferSelected", "base4", "none", "bold")
+call s:ghhl("BufferLineBufferVisible", "base3", "none")
+
+" Kapatma butonları
+call s:ghhl("BufferLineCloseButton", "base3", "none")
+call s:ghhl("BufferLineCloseButtonSelected", "base4", "none")
+call s:ghhl("BufferLineCloseButtonVisible", "base3", "none")
+
+" Aktif sekmeyi gösteren ince çizgi/ikon - bunu "none" yaparsak
+" hangi sekmenin aktif olduğunu gösteren tek işaret kaybolur
+call s:ghhl("BufferLineIndicatorSelected", "blue", "none")
+call s:ghhl("BufferLineIndicatorVisible", "base1", "none")
+
+" Ayırıcılar - arkaplanınız transparan olduğu için tek bir rengi
+" arkaplanla eşleyip "görünmez" yapmak artık mümkün değil (arkaplan
+" sabit bir renk değil ki eşleşsin). En düşük kontrastlı, göze
+" batmayan tonu (base1) kullanıyoruz. Tamamen kaldırmak isterseniz
+" en temiz yol bufferline.setup()'ta options.separator_style = "none"
+" ayarını yapmak - o zaman ayırıcı karakteri hiç çizilmez.
+call s:ghhl("BufferLineOffsetSeparator", "base1", "none")
+call s:ghhl("BufferLineSeparator", "base1", "none")
+call s:ghhl("BufferLineSeparatorSelected", "base1", "none")
+call s:ghhl("BufferLineSeparatorVisible", "base1", "none")
 
 " Dosya tipi ikonlarının arkaplanı bufferline tarafından ayrıca
 " (BufferLineDevIcon*) üretiliyor; bunları da ilgili sekme durumuna
@@ -701,3 +728,4 @@ hi! link GitSignsAddLn GitSignsAdd
 hi! link GitSignsChangeLn GitSignsChange
 hi! link GitSignsDeleteLn GitSignsDelete
 hi! link GitSignsCurrentLineBlame GhBase3
+
