@@ -103,8 +103,8 @@ hl.env("WLR_NO_HARDWARE_CURSORS", "1")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
-		gaps_in = 8,
-		gaps_out = 12,
+		gaps_in = 7,
+		gaps_out = 10,
 
             -- disable borders 
 
@@ -130,14 +130,14 @@ hl.config({
 
 		-- Change transparency of focused and unfocused windows
 		active_opacity = 0.93,
-		inactive_opacity = 0.90,
+		inactive_opacity = 0.85,
 
 
 		shadow = {
 			enabled = true,
-			range = 22,
-			render_power = 3,
-			color = 0xee1a1a1a,
+			range = 8,
+			render_power = 9,
+			color = 0xee080808,
 			color_inactive = 0x001a1a1a,
                   offset = {0,4}
 		},
@@ -172,16 +172,16 @@ hl.window_rule({
       -- no_shadow = true 
 })
 
--- window rule exceptions
+-- -- window rule exceptions
 -- hl.window_rule({
---       match = { class = ".*nvim.*" },
---       opacity = "0.5",
+--       match = { namespace = ".*nvim.*" },
+--       opacity = "0.9",
 -- }) -- you can learn class names with "hyprctl clients" command
 
 -- hl.layer_rule({
 --   match        = { namespace = "kitty" },
 --   blur         = true,
---   ignore_alpha = 0.5,
+--   ignore_alpha = 0.1,
 -- })
 
 -- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
@@ -378,6 +378,27 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"), { locked = true })
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --freeze --clipboard-only"), {locked = true})
 hl.bind("SUPER + ESCAPE", hl.dsp.exec_cmd("wlogout"), {locked = false}) -- locked = true ekran kilitliyken bu shortcut'ın çalışmasına izin ver demek
+
+-- enables swap workspaces between monitors
+hl.bind("SUPER + SHIFT + Q", hl.dsp.workspace.swap_monitors({ monitor1 = 0, monitor2 = 1})) -- used id instead of name for compactness
+
+-- move window to another monitor
+hl.bind("SUPER + SHIFT + N", function()
+  local active = hl.get_active_monitor()
+  local monitors = hl.get_monitors()
+  for _, m in ipairs(monitors) do
+    if m.id ~= active.id then
+      hl.dispatch(hl.dsp.window.move({ monitor = m.name }))
+      break
+    end
+  end
+end)
+
+-- swap windows with wanted direction 
+hl.bind("SUPER + SHIFT + up", hl.dsp.window.swap({direction = "u"}))
+hl.bind("SUPER + SHIFT + down", hl.dsp.window.swap({direction = "d"}))
+hl.bind("SUPER + SHIFT + left", hl.dsp.window.swap({direction = "l"}))
+hl.bind("SUPER + SHIFT + right", hl.dsp.window.swap({direction = "r"}))
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
