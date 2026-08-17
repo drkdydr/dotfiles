@@ -204,11 +204,11 @@
       },
 
       "custom/updates": {
-            "exec": "bash ~/.config/waybar/scripts/updates.sh",
+            "exec": "bash ~/.config/waybar/scripts/updates/updates.sh",
             "return-type": "json",
             "interval": 1800,
             "format": "{}",
-            "on-click": "kitty -e sudo dnf upgrade",
+            "on-click": "bash ~/.config/waybar/scripts/updates/updates-click.sh",
             "tooltip": true
       },
 
