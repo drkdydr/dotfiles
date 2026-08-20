@@ -50,11 +50,11 @@ if [ "$rc" -eq 0 ]; then
     echo "" > "$action_file"
     jq -nc '{text: "✔", tooltip: "Up to date", class: "up-to-date"}'
 elif [ "$rc" -eq 100 ]; then
-    echo "kitty -e ~/.config/waybar/scripts/do-upgrade.sh" > "$action_file"
+    echo "kitty -e ~/.config/waybar/scripts/updates/do-upgrade.sh" > "$action_file"
     count=$(echo "$output" | awk 'NF>=3' | grep -c .)
     jq -nc --arg count "$count" \
         '{text: "⬆", tooltip: ($count + " updates available"), class: "has-updates"}'
 else
     echo "" > "$action_file"
-    jq -nc '{text: "⚠", tooltip: "dnf check-update failed", class: "error"}'
+    jq -nc '{text: "⚠", tooltip: "check-update failed", class: "error"}'
 fi
