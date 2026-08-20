@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-if sudo pacman -Syu; then
+if sudo dnf upgrade; then
     touch "$HOME/.cache/waybar-last-upgrade"
 fi
-echo "Press a key to continue..."
+echo "Devam etmek için bir tuşa bas..."
 read -n 1

@@ -7,6 +7,8 @@
       "layer": "top",
       "modules-left": [
             "clock",
+            "temperature",
+            "backlight",
             "group/media"
             // "hyprland/window"
       ],
@@ -93,7 +95,7 @@
             "tooltip-format-wifi": "{essid} ({signalStrength}%)",
             "tooltip-format-ethernet": "{ifname}",
             "tooltip-format-disconnected": "No Network",
-            "on-click": "exec kitty --title=nmtui -e nmtui"
+            "on-click": "exec kitty --title=impala -e impala"
       },
       // HOVER NETWORK DRAWER (idea abondend)
       // // Grup Tanımı (Drawer)
@@ -133,6 +135,19 @@
                   }
             }
       },
+       "temperature": {
+            // "thermal-zone": 2,
+            // "hwmon-path": ["/sys/class/hwmon/hwmon2/temp1_input", "/sys/class/thermal/thermal_zone0/temp"],
+            "critical-threshold": 80,
+            "format-critical": " {temperatureC}°C",
+            "format": " {temperatureC}°C"
+      },
+      "backlight": {
+            "device": "intel_backlight",
+            "format": "{icon}",
+            "format-icons": ["", ""],
+            "tooltip-format": "{percent}"
+      },
       "pulseaudio": {
             "format": "{icon}",
             "format-muted": "",
@@ -152,7 +167,7 @@
             "ignored-sinks": [
                   "Easy Effects Sink"
             ],
-            "on-click": "pavucontrol"
+            "on-click": "kitty --title=wiremix -e wiremix"
       },
       "pulseaudio/slider": {
             "min": 0,

@@ -13,7 +13,7 @@ fish_config theme choose my
 
 set -g JAVA_HOME "/usr/bin/jvm/jdk-21.0.2"
 # equivalent to JAVA_HOME="/usr/lib/jvm/jdk-21.0.2"
-set -g DOTTEMP "$HOME/projects/.temp"
+set -g DOTTEMP "$HOME/projects/.util/.temp"
 set -g EDITOR "nvim"
 set -g VISUAL "nvim"
 set -g SHELL "/usr/bin/fish"
@@ -51,6 +51,7 @@ alias python "python3"
 abbr h "help"
 abbr ali "alias"
 alias spotify "flatpak run com.spotify.Client"
+alias todo "nvim ~/projects/.util/todo.txt"
 
 # ========= FUNCTIONS ==========
 
@@ -74,7 +75,7 @@ function rmcwd -d "deletes cwd recursively"
 end
 
 function bitwarden --description "copies bitwarden password to your clipboard"
-      set password_file_loc $HOME/Desktop/main/drk/bitwarden.txt
+      set password_file_loc $HOME/drk/bitwarden.txt
       sudo cat $password_file_loc | wl-copy && echo -ne "password copied to your clipboard!\n"
 end
 

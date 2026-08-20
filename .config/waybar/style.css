@@ -78,7 +78,9 @@ window#waybar {
 #clock,
 #custom-notification,
 #custom-power,
-#media
+#temperature,
+#media,
+#backlight
 /* #quick-net, */
 {
       min-width: 20px;
@@ -181,6 +183,8 @@ window#waybar {
 }
 
 #submap:hover,
+/* #temperature:hover, */
+/* #backlight, */
 /* #battery:hover, */
 /*tıklanmıyor*/
 #bluetooth:hover,
@@ -204,15 +208,19 @@ window#waybar {
 
 /* LEFT SIDE APPLICATION ALLOCATORS */
 
+/* Left most */
 #clock {
       margin: 10px 12px 0px 10px;
       /* zaten hyprland'den gelen waybar ile pencere arası bir boşluk var*/
 }
 
 #workspaces,
-#window {
-      padding: 0px;
-      margin: 10px 10px 0px 10px;
+#window,
+#temperature,
+#backlight,
+#media
+{
+      margin: 10px 10px 0px 0px;
 }
 
 /* RIGHT SIDE APPLICATION ALLOCATORS */
@@ -222,8 +230,7 @@ window#waybar {
 #volume, 
 /* #quick-net, */
 #custom-power,
-#custom-notification,
-#media
+#custom-notification
 {
       margin: 10px 10px 0px 0px;
 }
