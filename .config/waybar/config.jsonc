@@ -87,15 +87,13 @@
             "tooltip-format": "{used:0.1f}G/{total:0.1f}G used ({percentage}%)",
             "on-click": "exec kitty --title=htop -e htop"
       },
-      "network": {
-            "format-wifi": "<span color='#d9dadd'> </span>",
-            "format-ethernet": "<span color='#d9dadd'> </span>",
-            "format-disconnected": "<span color='#999a9e'>󰖪 </span>",
-            "tooltip-format": "{ifname} via {gwaddr}",
-            "tooltip-format-wifi": "{essid} ({signalStrength}%)",
-            "tooltip-format-ethernet": "{ifname}",
-            "tooltip-format-disconnected": "No Network",
-            "on-click": "exec kitty --title=impala -e impala"
+      "custom/network": {
+          "exec": "~/.config/waybar/scripts/network/network-cycle.sh",
+          "on-click-right": "~/.config/waybar/scripts/network/network-cycle.sh --toggle",
+          "on-click": "exec kitty --title=impala -e impala",
+          "return-type": "json",
+          "interval": 3,
+          "signal": 8
       },
       // HOVER NETWORK DRAWER (idea abondend)
       // // Grup Tanımı (Drawer)
@@ -243,7 +241,7 @@
                   "custom/toolkit-separator",
                   "custom/updates",
                   "custom/toolkit-separator",
-                  "network"
+                  "custom/network"
             ]
       },
       "custom/notification": {

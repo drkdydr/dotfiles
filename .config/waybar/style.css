@@ -83,7 +83,7 @@ window#waybar {
 #backlight
 /* #quick-net, */
 {
-      min-width: 20px;
+      min-width: 15px;
       border-radius: 19px;
       padding: 6px 14px;
       background-color: rgba(8, 8, 8, 0.8);
@@ -108,7 +108,7 @@ window#waybar {
 
 /* button properties */
 #bluetooth,
-#network,
+#custom-network,
 #custom-updates,
 #cpu,
 #memory
@@ -143,7 +143,7 @@ window#waybar {
 }
 
 /* rightmost button */
-#network {
+#custom-network {
       padding-right: 20px;
       border-top-right-radius: 18px;
       border-bottom-right-radius: 18px;
@@ -193,7 +193,7 @@ window#waybar {
 #volume:hover,
 #clock:hover,
 /* #quick-net:hover, */
-#network:hover,
+#custom-network:hover,
 #media:hover,
 #custom-power:hover,
 #custom-notification:hover,
