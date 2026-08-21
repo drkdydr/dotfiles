@@ -143,7 +143,7 @@
       "backlight": {
             "device": "intel_backlight",
             "format": "{icon}",
-            "format-icons": ["", ""],
+            "format-icons": [" ", " "],
             "tooltip-format": "{percent}"
       },
       "pulseaudio": {
@@ -210,7 +210,7 @@
       },
 
       "custom/power": {
-            "format": "<span color='#d9dadd' ></span>",
+            "format": "<span color='#d9dadd' > </span>",
             "on-click": "exec wlogout",
             "tooltip": true,
             "tooltip-format": "Logout Menu"
