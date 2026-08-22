@@ -52,6 +52,7 @@ abbr h "help"
 abbr ali "alias"
 alias spotify "flatpak run com.spotify.Client"
 alias todo "nvim ~/projects/.util/todo.txt"
+alias telegram "flatpak run org.telegram.desktop"
 
 # ========= FUNCTIONS ==========
 

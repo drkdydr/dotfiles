@@ -401,6 +401,25 @@ hl.bind("SUPER + SHIFT + down", hl.dsp.window.swap({direction = "d"}))
 hl.bind("SUPER + SHIFT + left", hl.dsp.window.swap({direction = "l"}))
 hl.bind("SUPER + SHIFT + right", hl.dsp.window.swap({direction = "r"}))
 
+-- Ok tuşlarıyla workspace geçişi
+hl.bind("SUPER + right", hl.dsp.focus({ workspace = "+1" }))
+hl.bind("SUPER + left",  hl.dsp.focus({ workspace = "-1" }))
+
+-- Numpad ok tuşları (NumLock KAPALIYKEN bu keysym'ler gelir)
+hl.bind("SUPER + KP_Right", hl.dsp.focus({ workspace = "+1" }))
+hl.bind("SUPER + KP_Left",  hl.dsp.focus({ workspace = "-1" }))
+
+-- Numpad 4/6 (NumLock AÇIKKEN bazı klavyelerde bunlar gelir)
+hl.bind("SUPER + KP_6", hl.dsp.focus({ workspace = "+1" }))
+hl.bind("SUPER + KP_4", hl.dsp.focus({ workspace = "-1" }))
+
+hl.gesture({
+    fingers        = 3,
+    direction      = "up",
+    action         = "special",
+    workspace_name = "magic",
+})
+
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
