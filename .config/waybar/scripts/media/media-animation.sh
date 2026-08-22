@@ -27,7 +27,7 @@ while :; do
     elif [ "$status" == "Paused" ]; then
       echo "▶ $time ♫"
     else
-      echo "♪ No Music"
+      echo "♪ No Sound"
     fi
 
     sleep 0.1

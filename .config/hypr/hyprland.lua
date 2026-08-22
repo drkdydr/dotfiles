@@ -36,8 +36,7 @@ hl.monitor({
 })
 
 ---------------------
----- MY PROGRAMS ----
----------------------
+---- MY PROGRAMS ---- ------------------
 
 -- Set programs that you use
 local terminal = "kitty"
@@ -209,8 +208,8 @@ hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear
 hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspacesIn", enabled = true, speed = 2.54, bezier = "almostLinear", style = "slide" })
+hl.animation({ leaf = "workspacesOut", enabled = true, speed = 2.54, bezier = "almostLinear", style = "slide" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 1, bezier = "quick" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
@@ -395,15 +394,25 @@ hl.bind("SUPER + SHIFT + N", function()
   end
 end)
 
--- swap windows with wanted direction 
-hl.bind("SUPER + SHIFT + up", hl.dsp.window.swap({direction = "u"}))
-hl.bind("SUPER + SHIFT + down", hl.dsp.window.swap({direction = "d"}))
-hl.bind("SUPER + SHIFT + left", hl.dsp.window.swap({direction = "l"}))
-hl.bind("SUPER + SHIFT + right", hl.dsp.window.swap({direction = "r"}))
+-- 1) WIN + CTRL + Ok tuşu : pencere yer değiştirme (swap)
+hl.bind(mainMod .. " + CTRL + left",  hl.dsp.window.swap({ direction = "left" }))
+hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.swap({ direction = "right" }))
+hl.bind(mainMod .. " + CTRL + up",    hl.dsp.window.swap({ direction = "up" }))
+hl.bind(mainMod .. " + CTRL + down",  hl.dsp.window.swap({ direction = "down" }))
 
--- Ok tuşlarıyla workspace geçişi
-hl.bind("SUPER + right", hl.dsp.focus({ workspace = "+1" }))
-hl.bind("SUPER + left",  hl.dsp.focus({ workspace = "-1" }))
+-- 2) WIN + Sağ/Sol Ok : workspace geçişi
+hl.bind(mainMod .. " + right", hl.dsp.focus({ workspace = "+1" }))
+hl.bind(mainMod .. " + left",  hl.dsp.focus({ workspace = "-1" }))
+
+-- 3) WIN + Yukarı/Aşağı Ok : magic (special) workspace aç/kapat
+hl.bind(mainMod .. " + up",   hl.dsp.workspace.toggle_special("magic"))
+hl.bind(mainMod .. " + down", hl.dsp.workspace.toggle_special("magic"))
+
+-- 4) WIN + SHIFT + Ok tuşu : pencereler arası odak (focus) değiştirme
+hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.focus({ direction = "down" }))
 
 -- Numpad ok tuşları (NumLock KAPALIYKEN bu keysym'ler gelir)
 hl.bind("SUPER + KP_Right", hl.dsp.focus({ workspace = "+1" }))
@@ -416,6 +425,13 @@ hl.bind("SUPER + KP_4", hl.dsp.focus({ workspace = "-1" }))
 hl.gesture({
     fingers        = 3,
     direction      = "up",
+    action         = "special",
+    workspace_name = "magic",
+})
+
+hl.gesture({
+    fingers        = 3,
+    direction      = "down",
     action         = "special",
     workspace_name = "magic",
 })

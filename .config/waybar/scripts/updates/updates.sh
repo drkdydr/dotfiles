@@ -62,7 +62,7 @@ elif [ "$rc" -eq 0 ]; then
     echo "kitty -e ~/.config/waybar/scripts/updates/do-update.sh" > "$action_file"
     count=$(echo "$output" | awk 'NF>=3' | grep -c .)
     jq -nc --arg count "$count" \
-        '{text: "⬆", tooltip: ($count + " updates available"), class: "has-updates"}'
+        '{text: "", tooltip: ($count + " updates available"), class: "has-updates"}'
 else
     echo "" > "$action_file"
     jq -nc '{text: "⚠", tooltip: "checkupdates returned an unexpected exit code", class: "error"}'
