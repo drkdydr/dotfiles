@@ -1,4 +1,5 @@
 -- This is an example Hyprland Lua config file.
+--
 -- Refer to the wiki for more information.
 -- https://wiki.hypr.land/Configuring/Start/
 
@@ -32,7 +33,7 @@ hl.monitor({
 	output = "eDP-1",
       mode = "preferred",
 	position = "2560x750", -- eğer scale değeri 1'den farklıysa pixel değerlerini de ona göre ayarlaman gerekir (bundan dolayı çalışmamıştı)
-	scale = "1.1",
+	scale = "1.1"
 })
 
 ---------------------
@@ -63,6 +64,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("flatpak run app.zen_browser.zen")
 	hl.exec_cmd("~/.config/hypr/scripts/waybar_peek.py")
 	hl.exec_cmd("hypridle")
+      hl.exec_cmd("hyprctl plugin load $HOME/Hyprspace2/Hyprspace.so")
 end)
 
 -------------------------------
@@ -78,6 +80,7 @@ hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("GBM_BACKEND", "nvidia-drm")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("WLR_NO_HARDWARE_CURSORS", "1")
+hl.env("GTK_USE_PORTAL", "1")
 -----------------------
 ----- PERMISSIONS -----
 -----------------------
@@ -136,7 +139,7 @@ hl.config({
 		shadow = {
 			enabled = true,
 			range = 8,
-			render_power = 9,
+			render_power = 4,
 			color = 0xee080808,
 			color_inactive = 0x001a1a1a,
                   offset = {0,4}
@@ -208,8 +211,8 @@ hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear
 hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspacesIn", enabled = true, speed = 2.54, bezier = "easeInOutCubic", style = "slidevert" })
+hl.animation({ leaf = "workspacesOut", enabled = true, speed = 2.54, bezier = "easeInOutCubic", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 1, bezier = "quick" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
@@ -251,6 +254,12 @@ hl.config({
 	},
 })
 
+hl.config({
+  binds = {
+    scroll_event_delay = 40,  -- ms cinsinden, ardışık scroll event'leri arası minimum bekleme
+  },
+})
+
 ----------------
 ----  MISC  ----
 ----------------
@@ -285,11 +294,13 @@ hl.config({
 	},
 })
 
-hl.gesture({
-	fingers = 3,
-	direction = "horizontal",
-	action = "workspace",
-})
+-- hl.gesture({
+-- 	fingers = 3,
+-- 	direction = "horizontal",
+-- 	action = "workspace",
+-- })
+
+
 
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
@@ -318,11 +329,12 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 
--- Move focus with mainMod + arrow keys
-hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
+-- Overwrote (line 417)
+-- -- Move focus with mainMod + arrow keys 
+-- hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
+-- hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
+-- hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
+-- hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -375,30 +387,85 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = tru
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 -- Personal Shortcuts
-hl.bind("SUPER + L", hl.dsp.exec_cmd("hyprlock"), { locked = true })
+hl.bind("SUPER + ALT + L", hl.dsp.exec_cmd("hyprlock"), { locked = true })
 hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("hyprshot -m region --freeze --clipboard-only"), {locked = true})
 hl.bind("SUPER + ESCAPE", hl.dsp.exec_cmd("wlogout"), {locked = false}) -- locked = true ekran kilitliyken bu shortcut'ın çalışmasına izin ver demek
 
--- enables swap workspaces between monitors
-hl.bind("SUPER + SHIFT + Q", hl.dsp.workspace.swap_monitors({ monitor1 = 0, monitor2 = 1})) -- used id instead of name for compactness
+-- shortcuts (SUPER):
+--    monitor (<blank>):
+--          <blank> : move focus right/left
+--          shift : move all monitors one right/left (a b c -> c a b)
+--          alt : swap all workspaces of monitor with right/left monitor
+--    workspace (W):
+--          <blank> : move focus
+--          shift < / > : move right/left monitor
+--          alt : swap current monitors active workspace with right/left monitor's active workspace
+--    window (Q):
+--          <blank> : move focus right/left/up/down
+--          shift : move right/left/up/down (trying to move right/left but it is already the left/rightmost window then move window to active workspace of right/left monitor)
+--          alt : swap with rigth/left/up/down (if it is left/rightmost window swap windows with the right/leftmost window of left/right monitor's active workspace)
 
--- move window to another monitor
-hl.bind("SUPER + SHIFT + N", function()
-  local active = hl.get_active_monitor()
-  local monitors = hl.get_monitors()
-  for _, m in ipairs(monitors) do
-    if m.id ~= active.id then
-      hl.dispatch(hl.dsp.window.move({ monitor = m.name }))
-      break
-    end
-  end
-end)
+local monitors = os.getenv("HOME") .. "/.config/hypr/scripts/monitors.sh"
 
--- swap windows with wanted direction 
-hl.bind("SUPER + SHIFT + up", hl.dsp.window.swap({direction = "u"}))
-hl.bind("SUPER + SHIFT + down", hl.dsp.window.swap({direction = "d"}))
-hl.bind("SUPER + SHIFT + left", hl.dsp.window.swap({direction = "l"}))
-hl.bind("SUPER + SHIFT + right", hl.dsp.window.swap({direction = "r"}))
+local function m(mode, obj, dir)
+  return hl.dsp.exec_cmd(monitors .. " " .. mode .. " " .. obj .. " " .. dir)
+end
+
+local function m_scroll(mode, obj, dir)
+  return hl.dsp.exec_cmd("MONWIN_SCROLL_THRESHOLD=35 " .. monitors .. " " .. mode .. " " .. obj .. " " .. dir)
+end
+
+-- ==================== MONITOR (SUPER + sol/sağ ok) ====================
+hl.bind("SUPER + left",         m("focus", "monitor", "left"))
+hl.bind("SUPER + right",        m("focus", "monitor", "right"))
+hl.bind("SUPER + SHIFT + left",   m("move",  "monitor", "left"))   -- tüm monitörleri döndür
+hl.bind("SUPER + SHIFT + right",  m("move",  "monitor", "right"))
+hl.bind("SUPER + CTRL + left",     m("swap",  "monitor", "left"))   -- aktif+komşunun TÜM workspace'lerini değiştir
+hl.bind("SUPER + CTRL + right",    m("swap",  "monitor", "right"))
+
+-- ==================== WORKSPACE (SUPER + yukarı/aşağı ok) ====================
+hl.bind("SUPER + up",           m("focus", "workspace", "front"))
+hl.bind("SUPER + down",         m("focus", "workspace", "back"))
+hl.bind("SUPER + SHIFT + up",     m("move",  "workspace", "right"))  -- aktif ws'i komşu monitöre taşı
+hl.bind("SUPER + SHIFT + down",   m("move",  "workspace", "left"))
+hl.bind("SUPER + CTRL + up",       m("swap",  "workspace", "right")) -- aktif ws'leri komşuyla değiştir
+hl.bind("SUPER + CTRL + down",     m("swap",  "workspace", "left"))
+
+-- ==================== WINDOW (SUPER + h/j/k/l) ====================
+hl.bind("SUPER + H",            m("focus", "window", "left"))
+hl.bind("SUPER + J",            m("focus", "window", "down"))
+hl.bind("SUPER + K",            m("focus", "window", "up"))
+hl.bind("SUPER + L",            m("focus", "window", "right"))
+
+hl.bind("SUPER + SHIFT + H",      m("move",  "window", "left"))   -- kenardaysa komşu monitöre it
+hl.bind("SUPER + SHIFT + J",      m("move",  "window", "down"))
+hl.bind("SUPER + SHIFT + K",      m("move",  "window", "up"))
+hl.bind("SUPER + SHIFT + L",      m("move",  "window", "right"))
+
+hl.bind("SUPER + CTRL + H",        m("swap",  "window", "left"))   -- kenardaysa komşunun kenar penceresiyle değiş
+hl.bind("SUPER + CTRL + J",        m("swap",  "window", "down"))
+hl.bind("SUPER + CTRL + K",        m("swap",  "window", "up"))
+hl.bind("SUPER + CTRL + L",        m("swap",  "window", "right"))
+
+-- ==================== FARE ====================
+-- scroll tekerleği: workspace front/back (hassasiyet eşiği ile chatter/hoyrat kullanım korumalı)
+hl.bind("SUPER + mouse_up",     m_scroll("focus", "workspace", "front"))
+hl.bind("SUPER + mouse_down",   m_scroll("focus", "workspace", "back"))
+
+-- yan butonlar: komşu monitöre fokus (buton kodların farklıysa `wev` ile kontrol et)
+hl.bind("mouse:275",          m("focus", "monitor", "left"))
+hl.bind("mouse:276",          m("focus", "monitor", "right"))
+
+-- ==================== 3 PARMAK GESTURE (touchpad) ====================
+-- If I am using 3 finger gesture that means I am using single monitor
+hl.gesture({
+  fingers = 3, direction = "up",
+  action = function() hl.dispatch(hl.dsp.exec_cmd(monitors .. " focus workspace front")) end,
+})
+hl.gesture({
+  fingers = 3, direction = "down",
+  action = function() hl.dispatch(hl.dsp.exec_cmd(monitors .. " focus workspace back")) end,
+})
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----

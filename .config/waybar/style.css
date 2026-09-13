@@ -78,10 +78,12 @@ window#waybar {
 #clock,
 #custom-notification,
 #custom-power,
-#media
+#temperature,
+#media,
+#backlight
 /* #quick-net, */
 {
-      min-width: 20px;
+      min-width: 15px;
       border-radius: 19px;
       padding: 6px 14px;
       background-color: rgba(8, 8, 8, 0.8);
@@ -106,7 +108,7 @@ window#waybar {
 
 /* button properties */
 #bluetooth,
-#network,
+#custom-network,
 #custom-updates,
 #cpu,
 #memory
@@ -141,7 +143,7 @@ window#waybar {
 }
 
 /* rightmost button */
-#network {
+#custom-network {
       padding-right: 20px;
       border-top-right-radius: 18px;
       border-bottom-right-radius: 18px;
@@ -181,6 +183,8 @@ window#waybar {
 }
 
 #submap:hover,
+/* #temperature:hover, */
+/* #backlight, */
 /* #battery:hover, */
 /*tıklanmıyor*/
 #bluetooth:hover,
@@ -189,7 +193,7 @@ window#waybar {
 #volume:hover,
 #clock:hover,
 /* #quick-net:hover, */
-#network:hover,
+#custom-network:hover,
 #media:hover,
 #custom-power:hover,
 #custom-notification:hover,
@@ -204,15 +208,19 @@ window#waybar {
 
 /* LEFT SIDE APPLICATION ALLOCATORS */
 
+/* Left most */
 #clock {
       margin: 10px 12px 0px 10px;
       /* zaten hyprland'den gelen waybar ile pencere arası bir boşluk var*/
 }
 
 #workspaces,
-#window {
-      padding: 0px;
-      margin: 10px 10px 0px 10px;
+#window,
+#temperature,
+#backlight,
+#media
+{
+      margin: 10px 10px 0px 0px;
 }
 
 /* RIGHT SIDE APPLICATION ALLOCATORS */
@@ -222,8 +230,7 @@ window#waybar {
 #volume, 
 /* #quick-net, */
 #custom-power,
-#custom-notification,
-#media
+#custom-notification
 {
       margin: 10px 10px 0px 0px;
 }

@@ -172,7 +172,7 @@ class WaybarPeek:
                 windows_opened = self.check_windows()
 
                 # Determine visibility: show if cursor at top OR no windows
-                should_be_visible = self.cursor_at_top or not windows_opened
+                should_be_visible = self.cursor_at_top # or not windows_opened # show only when hovered (not in no window situation)
 
                 # Update waybar if state changed
                 if should_be_visible != self.last_visibility:

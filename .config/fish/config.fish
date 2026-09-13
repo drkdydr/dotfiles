@@ -13,7 +13,7 @@ fish_config theme choose my
 
 set -g JAVA_HOME "/usr/bin/jvm/jdk-21.0.2"
 # equivalent to JAVA_HOME="/usr/lib/jvm/jdk-21.0.2"
-set -g DOTTEMP "$HOME/projects/.temp"
+set -g DOTTEMP "$HOME/projects/.util/.temp"
 set -g EDITOR "nvim"
 set -g VISUAL "nvim"
 set -g SHELL "/usr/bin/fish"
@@ -37,6 +37,8 @@ fish_add_path $HOME/.local/bin/my-scripts:$PATH;
 fish_add_path $HOME/.cargo/bin/
 fish_add_path /etc/ookla-speedtest
 fish_add_path $HOME/.spicetify
+fish_add_path $HOME/.iximiuz/labctl/bin #labiximiuz
+fish_add_path $HOME/.local/bin
 
 # ========= ALIASES ==========
 
@@ -51,6 +53,10 @@ alias python "python3"
 abbr h "help"
 abbr ali "alias"
 alias spotify "flatpak run com.spotify.Client"
+alias todo "nvim ~/projects/.util/todo.txt"
+alias telegram "flatpak run org.telegram.desktop"
+alias menu "python $HOME/bin/my/scripts/menu.py"
+alias temp "nvim ~/projects/.util/temp"
 
 # ========= FUNCTIONS ==========
 
@@ -74,7 +80,7 @@ function rmcwd -d "deletes cwd recursively"
 end
 
 function bitwarden --description "copies bitwarden password to your clipboard"
-      set password_file_loc $HOME/Desktop/main/drk/bitwarden.txt
+      set password_file_loc $HOME/drk/bitwarden.txt
       sudo cat $password_file_loc | wl-copy && echo -ne "password copied to your clipboard!\n"
 end
 
