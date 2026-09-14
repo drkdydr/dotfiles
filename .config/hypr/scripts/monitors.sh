@@ -36,6 +36,7 @@ direction=${3:-}
 
 usage() {
   echo "kullanım: $(basename "$0") <focus|move|swap> <monitor|workspace|window> <left|right|up|down|front|back>" >&2
+  echo "       veya: $(basename "$0") new workspace <herhangi_bir_şey>   (aktif monitörde yeni workspace açar, direction yok sayılır)" >&2
   exit 1
 }
 
@@ -65,7 +66,18 @@ if (( SCROLL_THRESHOLD > 0 )); then
 fi
 
 dispatch() {
+  if [[ -n "${MONWIN_DEBUG:-}" ]]; then
+    echo "[dispatch] $1" >> /tmp/monwin_debug.log
+    echo "[dispatch] $1" >&2
+  fi
   hyprctl dispatch "$1"
+}
+
+debug_log() {
+  if [[ -n "${MONWIN_DEBUG:-}" ]]; then
+    echo "[debug] $*" >> /tmp/monwin_debug.log
+    echo "[debug] $*" >&2
+  fi
 }
 
 # --- monitörleri x konumuna göre soldan sağa sırala ---
@@ -131,13 +143,32 @@ focus_workspace_relative() {
   done
   (( idx == -1 )) && idx=0
 
-  local target_idx
+  # ID karşılaştırmalı slide animasyonu gerçek bir wrap'te (son->ilk ya da
+  # ilk->son) yanlış yöne kayar (Hyprland'ın kendi kısıtı, ayarla düzelmiyor).
+  # Bunu tespit edip SADECE o geçişte animasyonu kapatıp anlık geçiyoruz.
+  local target_idx wrapping=0
   case "$dir" in
-    front) target_idx=$(( (idx + 1) % count )) ;;
-    back)  target_idx=$(( (idx - 1 + count) % count )) ;;
+    front)
+      (( idx == count - 1 )) && wrapping=1
+      target_idx=$(( (idx + 1) % count ))
+      ;;
+    back)
+      (( idx == 0 )) && wrapping=1
+      target_idx=$(( (idx - 1 + count) % count ))
+      ;;
   esac
 
-  dispatch "hl.dsp.focus({ workspace = ${ws_list[$target_idx]} })"
+  if (( wrapping == 1 )); then
+    # NOT: aşağıdaki satırlar hyprland.lua'daki workspacesIn/workspacesOut
+    # animasyon ayarlarınla birebir aynı olmalı (speed/bezier) — orayı
+    # değiştirirsen burayı da güncelle. workspacesOut zaten fade olduğu için
+    # ona dokunmuyoruz, sadece yön sorunu olan workspacesIn'i geçici fade yapıyoruz.
+    hyprctl eval 'hl.animation({ leaf = "workspacesIn", enabled = true, speed = 2.54, bezier = "easeInOutCubic", style = "fade" })' >/dev/null
+    dispatch "hl.dsp.focus({ workspace = ${ws_list[$target_idx]} })"
+    hyprctl eval 'hl.animation({ leaf = "workspacesIn", enabled = true, speed = 2.54, bezier = "easeInOutCubic", style = "slidevert" })' >/dev/null
+  else
+    dispatch "hl.dsp.focus({ workspace = ${ws_list[$target_idx]} })"
+  fi
 }
 
 # iki monitöre ait TÜM (özel/scratchpad olmayan) workspace'leri karşılıklı taşır.
@@ -193,15 +224,52 @@ rotate_all_monitors() {
   fi
 }
 
-# window move/swap: yukarı/aşağıda her zaman normal davranış (tek sıra monitör
-# düzeni varsayımı). Sol/sağda pencere zaten o yöndeki en kenardaysa, komşu
-# monitörün aktif workspace'ine it (move) ya da oradaki karşı kenar penceresiyle
-# değiştir (swap).
-window_move_or_swap() {
+# Kenar durumunda hedef monitörü ve (varsa) orada karşılanacak pencereyi hesaplar.
+# Kural her zaman aynı (wrap olsun olmasın): sağa gidince hedefin EN SOLUNDAKİ
+# penceresine girilir, sola gidince hedefin EN SAĞINDAKİ penceresine girilir —
+# tüm monitörler tek bir dairesel pencere dizisi gibi düşünülüyor.
+compute_edge_target() {
+  local dir=$1
+  local target_index
+  target_index=$(target_index_for "$dir")
+  EDGE_TARGET_NAME=${mon_names[$target_index]}
+  EDGE_TARGET_ID=${mon_ids[$target_index]}
+
+  local target_ws_id
+  target_ws_id=$(jq -r --argjson id "$EDGE_TARGET_ID" '.[] | select(.id==$id) | .activeWorkspace.id' <<< "$(hyprctl monitors -j)")
+  EDGE_TARGET_WS_ID=$target_ws_id
+
+  local -a target_addrs
+  mapfile -t target_addrs < <(tiled_window_addrs_on_workspace "$target_ws_id")
+
+  EDGE_OTHER_ADDR=""
+  if (( ${#target_addrs[@]} > 0 )); then
+    if [[ "$dir" == "right" ]]; then
+      EDGE_OTHER_ADDR=${target_addrs[0]}
+    else
+      EDGE_OTHER_ADDR=${target_addrs[-1]}
+    fi
+  fi
+
+  debug_log "compute_edge_target dir=$dir target_monitor=$EDGE_TARGET_NAME(id=$EDGE_TARGET_ID) target_ws=$EDGE_TARGET_WS_ID target_addrs=[${target_addrs[*]:-}] other_addr=${EDGE_OTHER_ADDR:-<none>}"
+}
+
+# window focus/move/swap: yukarı/aşağıda her zaman normal davranış (tek sıra
+# monitör düzeni varsayımı). Sol/sağda pencere zaten o yöndeki en kenardaysa,
+# komşu monitörün aktif workspace'ine geç/it (focus/move) ya da oradaki uygun
+# kenar penceresiyle değiştir (swap) — bkz. compute_edge_target.
+window_directional() {
   local verb=$1 dir=$2
 
+  local plain_dispatch
+  if [[ "$verb" == "focus" ]]; then
+    plain_dispatch="hl.dsp.focus({ direction = '$dir' })"
+  else
+    plain_dispatch="hl.dsp.window.${verb}({ direction = '$dir' })"
+  fi
+
   if [[ "$dir" == "up" || "$dir" == "down" ]]; then
-    dispatch "hl.dsp.window.${verb}({ direction = '$dir' })"
+    dispatch "$plain_dispatch"
     return
   fi
 
@@ -223,52 +291,57 @@ window_move_or_swap() {
   [[ "$dir" == "left"  && $idx -eq 0 ]] && at_edge=1
   [[ "$dir" == "right" && $idx -eq $((n - 1)) ]] && at_edge=1
 
+  debug_log "window_directional verb=$verb dir=$dir active_addr=$active_addr active_ws=$active_ws_id idx=$idx of n=$n addrs=[${addrs[*]:-}] at_edge=$at_edge"
+
   if (( at_edge == 0 )); then
-    dispatch "hl.dsp.window.${verb}({ direction = '$dir' })"
+    debug_log "kenarda değil, düz dispatch: $plain_dispatch"
+    dispatch "$plain_dispatch"
     return
   fi
 
-  local target_index target_name target_id
-  target_index=$(target_index_for "$dir")
-  target_name=${mon_names[$target_index]}
-  target_id=${mon_ids[$target_index]}
+  compute_edge_target "$dir"
 
-  if [[ "$verb" == "move" ]]; then
-    dispatch "hl.dsp.window.move({ monitor = '$target_name' })"
-    return
-  fi
-
-  # swap: hedef monitörün aktif workspace'inde karşılanacak pencereyi bul
-  local target_ws_id
-  target_ws_id=$(jq -r --argjson id "$target_id" '.[] | select(.id==$id) | .activeWorkspace.id' <<< "$(hyprctl monitors -j)")
-
-  local -a target_addrs
-  mapfile -t target_addrs < <(tiled_window_addrs_on_workspace "$target_ws_id")
-
-  if (( ${#target_addrs[@]} == 0 )); then
-    dispatch "hl.dsp.window.move({ monitor = '$target_name' })"
-    return
-  fi
-
-  local other_addr
-  if [[ "$dir" == "right" ]]; then
-    other_addr=${target_addrs[0]}
-  else
-    other_addr=${target_addrs[-1]}
-  fi
-
-  dispatch "hl.dsp.window.move({ window = 'address:$active_addr', workspace = $target_ws_id })"
-  dispatch "hl.dsp.window.move({ window = 'address:$other_addr', workspace = $active_ws_id })"
-  dispatch "hl.dsp.focus({ window = 'address:$active_addr' })"
+  case "$verb" in
+    focus)
+      if [[ -n "$EDGE_OTHER_ADDR" ]]; then
+        dispatch "hl.dsp.focus({ window = 'address:$EDGE_OTHER_ADDR' })"
+      else
+        dispatch "hl.dsp.focus({ monitor = '$EDGE_TARGET_NAME' })"
+      fi
+      ;;
+    move)
+      if [[ -z "$EDGE_OTHER_ADDR" ]]; then
+        # hedef workspace'te tiled pencere yok, çakışma riski yok -> düz taşı yeterli
+        dispatch "hl.dsp.window.move({ monitor = '$EDGE_TARGET_NAME' })"
+        return
+      fi
+      # Hyprland'ın "şu kenara ekle" diye bir primitive'i yok, sadece iki pencerenin
+      # yerini garantili değiştirebiliyoruz. Bu yüzden move'un kenar davranışı da
+      # swap ile aynı mekanizmayı kullanıyor (kenardaki pencereyle yer değiştir) —
+      # tek farkı yok, ama en azından HANGİ kenara düştüğü artık tutarlı/garantili.
+      dispatch "hl.dsp.window.move({ window = 'address:$active_addr', workspace = $EDGE_TARGET_WS_ID })"
+      dispatch "hl.dsp.window.move({ window = 'address:$EDGE_OTHER_ADDR', workspace = $active_ws_id })"
+      dispatch "hl.dsp.focus({ window = 'address:$active_addr' })"
+      ;;
+    swap)
+      if [[ -z "$EDGE_OTHER_ADDR" ]]; then
+        dispatch "hl.dsp.window.move({ monitor = '$EDGE_TARGET_NAME' })"
+        return
+      fi
+      dispatch "hl.dsp.window.move({ window = 'address:$active_addr', workspace = $EDGE_TARGET_WS_ID })"
+      dispatch "hl.dsp.window.move({ window = 'address:$EDGE_OTHER_ADDR', workspace = $active_ws_id })"
+      dispatch "hl.dsp.focus({ window = 'address:$active_addr' })"
+      ;;
+  esac
 }
 
 case "$obj" in
 
   window)
     case "$mode" in
-      focus) dispatch "hl.dsp.focus({ direction = '$direction' })" ;;
-      move)  window_move_or_swap move "$direction" ;;
-      swap)  window_move_or_swap swap "$direction" ;;
+      focus) window_directional focus "$direction" ;;
+      move)  window_directional move  "$direction" ;;
+      swap)  window_directional swap  "$direction" ;;
       *) usage ;;
     esac
     ;;
@@ -308,6 +381,10 @@ case "$obj" in
       swap)
         target_index=$(target_index_for "$direction")
         dispatch "hl.dsp.workspace.swap_monitors({ monitor1 = '${mon_names[$current_index]}', monitor2 = '${mon_names[$target_index]}' })"
+        ;;
+      new)
+        # aktif monitörde ilk boş/kullanılmamış workspace'i oluşturup ona geçer
+        dispatch "hl.dsp.focus({ workspace = 'empty' })"
         ;;
       *) usage ;;
     esac

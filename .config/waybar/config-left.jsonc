@@ -1,0 +1,300 @@
+{
+      // show only hover
+      "start_hidden": false,
+      "ipc": true,
+      "on-sigusr1": "hide",
+      "on-sigusr2": "show",
+      "layer": "top",
+      "position": "left",
+      "modules-left": [
+            "clock",
+            "temperature",
+            "backlight",
+            "group/media"
+            // "hyprland/window"
+      ],
+      "modules-center": [
+            "hyprland/workspaces"
+      ],
+      "modules-right": [
+            "hyprland/submap",
+            // "group/quick-net", // old "network" 
+            "group/toolkit",
+            "group/volume",
+            "battery",
+            "custom/separator",
+            "custom/notification",
+            "custom/power"
+      ],
+      "battery": {
+            "interval": 60,
+            "format": "{icon} {capacity}",
+            "format-icons": {
+                  "default": [
+                        "󰂎",
+                        "󰁺",
+                        "󰁻",
+                        "󰁼",
+                        "󰁽",
+                        "󰁾",
+                        "󰁿",
+                        "󰂀",
+                        "󰂁",
+                        "󰂂",
+                        "󰁹"
+                  ],
+                  "charging": [
+                        "󰢟",
+                        "󰢜",
+                        "󰂆",
+                        "󰂇",
+                        "󰂈",
+                        "󰢝",
+                        "󰂉",
+                        "󰢞",
+                        "󰂊",
+                        "󰂋",
+                        "󰂅"
+                  ]
+            }
+      },
+
+      // enables workspace travel with scroll
+      "hyprland/workspaces": {
+           "format": "{icon}",
+           "on-scroll-up": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e+1\"})' ",
+           "on-scroll-down": "hyprctl dispatch 'hl.dsp.focus({workspace=\"e-1\"})' "
+      },
+
+      "bluetooth": {
+            "format": "",
+            "format-disabled": "", // an empty format will hide the module
+            "format-connected": " {num_connections}",
+            "tooltip-format": "{controller_alias}\t{controller_address}",
+            "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+            "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+            "on-click": "exec kitty --title=bluetui -e bluetui"
+      },
+      "cpu": {
+            "interval": 10,
+            "format": "",
+            "tooltip-format": "{}%",
+            "max-length": 10,
+            "on-click": "exec kitty --title=btop -e btop"
+      },
+      "memory": {
+            "interval": 30,
+            "format": " ",
+            "tooltip-format": "{used:0.1f}G/{total:0.1f}G used ({percentage}%)",
+            "on-click": "exec kitty --title=htop -e htop"
+      },
+      "custom/network": {
+          "exec": "~/.config/waybar/scripts/network/network-cycle.sh",
+          "on-click-right": "~/.config/waybar/scripts/network/network-cycle.sh --toggle",
+          "on-click": "exec kitty --title=nmtui -e nmtui",
+          "return-type": "json",
+          "interval": 3,
+          "signal": 8
+      },
+      // HOVER NETWORK DRAWER (idea abondend)
+      // // Grup Tanımı (Drawer)
+      // "group/quick-net": {
+      //       "orientation": "horizontal",
+      //       "drawer": {
+      //             "transition-duration": 500, // Genişleme hızı (milisaniye)
+      //             "transition-left-to-right": true // Sola doğru açılması için (sağda duruyorsa)
+      //       },
+      //       "modules": [
+      //             "network#icon", // Her zaman görünen ikon
+      //             "network#text" // Hover yapınca açılan yazı
+      //       ]
+      // },
+      // "network#icon": {
+      //       "format-wifi": "<span color='#d9dadd'> </span>",
+      //       "format-ethernet": "<span color='#d9dadd'> </span>",
+      //       "format-disconnected": "<span color='#999a9e'>󰖪 </span>",
+      //       "tooltip": false, // Tooltip'i kapatıyoruz çünkü zaten ismi açılacak
+      //       "on-click": "exec kitty --title=nmtui -e nmtui"
+      // },
+      // "network#text": {
+      //       "format-wifi": "{essid} ({signalStrength}%)",
+      //       "format-ethernet": "{ipaddr}/{cidr}",
+      //       "format-disconnected": "no network",
+      //       "tooltip": false,
+      //       "on-click": "exec kitty --title=nmtui -e nmtui"
+      // },
+      "clock": {
+            "format": "<span color='#d9dadd'> </span>{:%H:%M}",
+            //"format-alt": "<span foreground='#d9dadd'>🗓 </span><span>{:%a %d}</span>",
+            "format-alt": "<span foreground='#d9dadd'>󰃭 </span><span>{:%a %b %d, %Y}</span>",
+            "tooltip-format": "<tt><small>{calendar}</small></tt>",
+            "calendar": {
+                  "format": {
+                        "today": "<span color='#75f1fa'><b>{}</b></span>"
+                  }
+            }
+      },
+       "temperature": {
+            "thermal-zone": 2,
+            "hwmon-path": ["/sys/class/hwmon/hwmon1/temp1_input", "/sys/class/thermal/thermal_zone0/temp"],
+            "critical-threshold": 80,
+            "format-critical": " {temperatureC}°C",
+            "format": " {temperatureC}°C"
+      },
+      "backlight": {
+            "device": "intel_backlight",
+            "format": "{icon}",
+            "format-icons": [" ", " "],
+            "tooltip-format": "{percent}"
+      },
+      "pulseaudio": {
+            "format": "{icon}",
+            "format-muted": "",
+            "format-icons": {
+                  "headphone": " ",
+                  "hands-free": " ",
+                  "headset": " ",
+                  "phone": " ",
+                  "portable": " ",
+                  "car": " ",
+                  "default": [
+                        " ",
+                        " "
+                  ]
+            },
+            "scroll-step": 1,
+            "ignored-sinks": [
+                  "Easy Effects Sink"
+            ],
+            "on-click": "kitty --title=wiremix -e wiremix"
+      },
+      "pulseaudio/slider": {
+            "min": 0,
+            "max": 100,
+            "orientation": "horizontal"
+      },
+      "pulseaudio#percent": {
+            "format": "{volume}%",
+            "format-muted": "Mute",
+            "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+      },
+      "group/volume-drawer": {
+            "orientation": "horizontal",
+            "drawer": { // slider will appear on hover
+                  "transition-duration": 500,
+                  "transition-left-to-right": true
+            },
+            "modules": [
+                  "pulseaudio",
+                  "pulseaudio/slider"
+            ]
+      },
+      "group/volume": {
+            "orientation": "horizontal",
+            "class": "volume-group",
+            "modules": [
+                  "group/volume-drawer",
+                  "pulseaudio#percent"
+            ]
+      },
+      // active window info
+      "hyprland/window": {
+            "format": " {title} ",
+            "max-length": 40,
+            "separate-outputs": true
+      },
+
+      // === CUSTOM MODULES ===
+      "custom/arch": {
+            "format": " ",
+            "on-click": "sh /home/knightfall/.config/hypr/scripts/exec_wofi application_launcher"
+      },
+
+      "custom/power": {
+            "format": "<span color='#d9dadd' > </span>",
+            "on-click": "exec wlogout",
+            "tooltip": true,
+            "tooltip-format": "Logout Menu"
+      },
+
+      "custom/updates": {
+            "exec": "bash ~/.config/waybar/scripts/updates/updates.sh",
+            "return-type": "json",
+            "interval": 1800,
+            "format": "{}",
+            "on-click": "bash ~/.config/waybar/scripts/updates/updates-click.sh",
+            "tooltip": true
+      },
+
+      "custom/toolkit-separator": {
+            "format": "|",
+            "tooltip": false
+      },
+
+      "group/toolkit": {
+            "orientation": "horizontal",
+            "modules": [
+                  "memory",
+                  "custom/toolkit-separator",
+                  "cpu",
+                  "custom/toolkit-separator",
+                  "bluetooth",
+                  "custom/toolkit-separator",
+                  "custom/updates",
+                  "custom/toolkit-separator",
+                  "custom/network"
+            ]
+      },
+      "custom/notification": {
+            "tooltip": false,
+            "format": "{icon}",
+            "format-icons": {
+                  "notification": "<span foreground='#f25757'><sup></sup></span>",
+                  "none": "",
+                  "dnd-notification": "<span foreground='#f25757'><sup></sup></span>",
+                  "dnd-none": "",
+                  "inhibited-notification": "<span foreground='#f25757'><sup></sup></span>",
+                  "inhibited-none": "",
+                  "dnd-inhibited-notification": "<span foreground='#f25757'><sup></sup></span>",
+                  "dnd-inhibited-none": ""
+            },
+            "return-type": "json",
+            "exec-if": "which swaync-client",
+            "exec": "swaync-client -swb",
+            "on-click": "swaync-client -t -sw",
+            "on-click-right": "swaync-client -d -sw",
+            "escape": true
+      },
+
+      "custom/separator": { 
+            "format": "|",
+            "tooltip": false
+      },
+
+      "custom/media-now-playing": {
+            "exec": "~/.config/waybar/scripts/media/media-now-playing.sh",
+            "escape": true,
+            "tooltip": false
+      },
+
+      "custom/media-animation": {
+            "exec": "~/.config/waybar/scripts/media/media-animation.sh",
+            "tooltip": false,
+            "on-click": "playerctl play-pause",
+            "on-click-middle": "playerctl previous",
+            "on-click-right": "playerctl next"
+      },
+
+      "group/media": {
+            "orientation": "horizontal",
+            "drawer": {
+                  "transition-duration": 500, // Genişleme hızı (milisaniye)
+                  "transition-left-to-right": true // Sola doğru açılması için (sağda duruyorsa)
+            },
+            "modules": [
+              "custom/media-animation",
+              "custom/media-now-playing"
+            ]
+      }
+
+}

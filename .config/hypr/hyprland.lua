@@ -210,9 +210,9 @@ hl.animation({ leaf = "layersIn", enabled = true, speed = 1, bezier = "easeOutQu
 hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear", style = "fade" })
 hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "slidevert" })
 hl.animation({ leaf = "workspacesIn", enabled = true, speed = 2.54, bezier = "easeInOutCubic", style = "slidevert" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 2.54, bezier = "easeInOutCubic", style = "fade" })
+hl.animation({ leaf = "workspacesOut", enabled = true, speed = 2.54, bezier = "easeInOutCubic", style = "slidevert" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 1, bezier = "quick" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
@@ -466,6 +466,9 @@ hl.gesture({
   fingers = 3, direction = "down",
   action = function() hl.dispatch(hl.dsp.exec_cmd(monitors .. " focus workspace back")) end,
 })
+
+-- add empty workspace to current monitor
+hl.bind("SUPER + TAB", m("new", "workspace", "none"))
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
