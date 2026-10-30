@@ -115,7 +115,7 @@ function! s:ghhl(group, guifg, ...)
         let style = a:2
     else
         let style = "NONE"
-    endif
+endif
 
     let hi_str = [ "hi", a:group,
             \ 'guifg=' . fg[0], "ctermfg=" . fg[1],
@@ -181,6 +181,9 @@ call s:ghhl("VertSplit", "base1", "base1")
 call s:ghhl("Visual", "none", "base0", "reverse")
 call s:ghhl("WarningMsg", "orange", "none")
 
+call s:ghhl("EndOfBuffer", "none", "none")
+call s:ghhl("NonText", "none", "none")
+
 "########################################
 " links
 
@@ -215,8 +218,6 @@ hi! link ModeMsg GhBase4
 hi! link MoreMsg GhBase4
 hi! link MsgArea Title
 hi! link Noise Delimiter
-hi! link NonText GhBase3
-hi! link NonText Ignore
 hi! link Number GhOrange
 hi! link Operator GhBlue
 hi! link PreCondit PreProc

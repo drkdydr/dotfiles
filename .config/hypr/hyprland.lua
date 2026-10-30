@@ -32,7 +32,7 @@ hl.monitor({
 hl.monitor({
 	output = "eDP-1",
       mode = "preferred",
-	position = "2560x750", -- eğer scale değeri 1'den farklıysa pixel değerlerini de ona göre ayarlaman gerekir (bundan dolayı çalışmamıştı)
+	position = "2560x350", -- eğer scale değeri 1'den farklıysa pixel değerlerini de ona göre ayarlaman gerekir (bundan dolayı çalışmamıştı)
 	scale = "1.1"
 })
 
@@ -284,11 +284,12 @@ hl.config({
 		kb_rules = "",
 
 		follow_mouse = 1,
+            natural_scroll = true,
 
 		sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
 
 		touchpad = {
-			natural_scroll = false,
+			natural_scroll = true,
 		},
 
 	},

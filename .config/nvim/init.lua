@@ -64,3 +64,6 @@ vim.api.nvim_set_hl(0, "BufferLineBackground", { bg = "NONE", ctermbg = "NONE"})
 -- -- Hata mesajlarının (ErrorMsg) da arka planını silmek istersen (isteğe bağlı):
 -- -- Make warning message background transparent
 -- vim.api.nvim_set_hl(0, "ErrorMsg", { fg = "#fa7970", bg = "NONE", ctermbg = "NONE" })
+
+-- make end of buffer transparent (~)
+vim.api.nvim_set_hl(0, "EndOfBuffer", { fg = "NONE", bg = "NONE" })
